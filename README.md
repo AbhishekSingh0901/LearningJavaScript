@@ -1,2 +1,2 @@
-# LearinigJavaScript
+# LearninigJavaScript
 learning Fundamentals of JavaScript
