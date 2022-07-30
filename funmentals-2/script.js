@@ -220,7 +220,6 @@ if (marksId.bmi > johnsId.bmi) {
   );
 }
 
-*/
 
 for (let i = 1; i <= 10; i++) {
   console.log(`Lifting weight repetition ${i} 🏋️`);
@@ -236,8 +235,8 @@ console.log(type);
 
 //continue and break statement:
 
-/*ONLY STRINGS - continue statments says that if the condition
-is true then continue to the next iteration.*/
+// ONLY STRINGS - continue statments says that if the condition
+// is true then continue to the next iteration.
 
 for (let i = 0; i < id.length; i++) {
   if (typeof id[i] !== "string") continue;
@@ -245,8 +244,8 @@ for (let i = 0; i < id.length; i++) {
   console.log(id[i], typeof id[i]);
 }
 
-/*BREAK AFTER GETTING NUMBER - break statment breaks the loops i.e.
-stops the loop as soon as the condition is fulfilled*/
+// BREAK AFTER GETTING NUMBER - break statment breaks the loops i.e.
+// stops the loop as soon as the condition is fulfilled
 
 console.log("__BREAK STATEMENT__");
 for (let i = 0; i < id.length; i++) {
@@ -254,3 +253,21 @@ for (let i = 0; i < id.length; i++) {
 
   console.log(id[i], typeof id[i]);
 }
+
+//While loop
+
+let rep = 1;
+while (rep <= 10) {
+  console.log(`Lifting weight repetition ${rep} 🏋️`);
+  rep++;
+}
+
+let dice = Math.trunc(Math.random() * 6) + 1;
+console.log(dice);
+while (dice !== 6) {
+  console.log(`retry  ${dice}`);
+  dice = Math.trunc(Math.random() * 6) + 1;
+}
+
+
+*/
