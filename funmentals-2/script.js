@@ -269,5 +269,31 @@ while (dice !== 6) {
   dice = Math.trunc(Math.random() * 6) + 1;
 }
 
+// Coding Challenge 4:
+const bills = [22, 295, 176, 440, 37, 105, 10, 110, 52];
+const tips = [];
+const totals = [];
+const calcTip = function (bill) {
+  const tip = bill <= 300 && bill >= 50 ? bill * 0.15 : bill * 0.2;
+  return tip;
+};
 
+for (let i = 0; i < bills.length; i++) {
+  tips.push(calcTip(bills[i]));
+  totals.push(bills[i] + tips[i]);
+}
+
+console.log(tips, totals);
+
+const calcAverage = function (arr) {
+  let sum = 0;
+  let i = 0;
+  while (i < arr.length) {
+    sum += arr[i];
+    i++;
+  }
+
+  const avg = sum / arr.length;
+  return avg;
+};
 */
