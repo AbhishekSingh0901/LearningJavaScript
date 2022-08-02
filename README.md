@@ -1,3 +1,3 @@
 # LearningJavaScript
 
-learning complete ja
+learning complete javascript from basics
