@@ -6,9 +6,10 @@
 We work for a company building a smart home thermometer, our most recent task is this: 
 "Given an array of temperatures of one day, Calculate the temparature amplitude, 
 keep in mind that sometimes there might be a sensor error."
-*/
+
 
 const temperature = [3, -2, , -6, -1, "error", 9, 13, 17, 15, 14, 9, 5];
+*/
 
 /* 1) Understanding the question:
     - what is temp amplitude: Answer?: Diff bw highest and lowest temp.
@@ -20,7 +21,7 @@ const temperature = [3, -2, , -6, -1, "error", 9, 13, 17, 15, 14, 9, 5];
     -find max and min value
     -sub min from max and return.
     
-*/
+
 
 const calcAmplitude = function (temparatures) {
   let max = temparatures[0];
@@ -38,9 +39,13 @@ const calcAmplitude = function (temparatures) {
   return max - min;
 };
 
+
+
 calcAmplitude(temperature);
 const amp = calcAmplitude(temperature);
 console.log(amp);
+
+*/
 
 //PROBLEM 2: Function should now recive 2 arrays of temps
 /* 
@@ -51,7 +56,7 @@ console.log(amp);
 
 2) Breaking into sub-problems
   -Merge two arrays.
-*/
+
 
 const calcAmplitudeNew = function (temp1, temp2) {
   let temparatures = temp1.concat(temp2);
@@ -74,3 +79,32 @@ const calcAmplitudeNew = function (temp1, temp2) {
 calcAmplitude(temperature);
 const amp2 = calcAmplitudeNew(temperature, [4, 5, 6, 7, 46]);
 console.log(amp2);
+
+*/
+
+//Challenge 1:
+/* Given an array of forecasted maximum temperatures, the thermometer displays a 
+string with the given temperatures. Example: [17, 21, 23] will print "... 17ºC in 1 
+days ... 21ºC in 2 days ... 23ºC in 3 days ..." 
+
+1) Understaing the problem:
+  -how to print the string?
+  -how to print the degree symbol?
+
+2)Breaking problem into sub problems:
+  - make a funtion.
+  - how to print a the array value in one string?
+  - how to use the degree symbol
+*/
+
+const printForecast = function (arr) {
+  let str = "... ";
+  for (let i = 0; i < arr.length; i++) {
+    str = str.concat(`${arr[i]}ºC in ${i + 1} days ... `);
+  }
+
+  return str;
+};
+
+const array1 = [17, 21, 23];
+console.log(printForecast(array1));
