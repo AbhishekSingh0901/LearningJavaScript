@@ -205,3 +205,9 @@ console.log(`bill value = ${bill} \ntip = ${tip}\ntotal = ${bill + tip}`);
 */
 
 console.log(`Hello World!`);
+const message2 =
+  "This is a long message \
+that spans across multiple lines \
+in the code.";
+
+console.log(message2);
