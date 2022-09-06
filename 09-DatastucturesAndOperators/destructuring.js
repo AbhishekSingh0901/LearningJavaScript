@@ -6,21 +6,11 @@
 
 // Data needed for first part of the section
 const restaurant = {
-  name: "Classico Italiano",
+  resName: "Classico Italiano",
   location: "Via Angelo Tavanti 23, Firenze, Italy",
   categories: ["Italian", "Pizzeria", "Vegetarian", "Organic"],
   starterMenu: ["Focaccia", "Bruschetta", "Garlic Bread", "Caprese Salad"],
   mainMenu: ["Pizza", "Pasta", "Risotto"],
-
-  order: function (starterIndex, mainindex) {
-    return [this.starterMenu[starterIndex], this.mainMenu[mainindex]];
-  },
-
-  orderDelivery: function ({ starterIndex, mainindex, time, address }) {
-    console.log(
-      `order received ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainindex]} will be delivered to ${address}  at ${time}`
-    );
-  },
 
   openingHours: {
     thu: {
@@ -36,44 +26,58 @@ const restaurant = {
       close: 24,
     },
   },
+
+  orderDelivery: function ({
+    starterIndex = 1,
+    mainindex = 0,
+    time = "20;00",
+    address,
+  }) {
+    console.log(
+      `order recieved ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainindex]} will be deliverd to ${address} ,at  ${time}`
+    );
+  },
+
+  order: function (starterIndex, mainindex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainindex]];
+  },
 };
 
 //OBJECT DESTRUCTURING
 
-// const { name, openingHours, categories } = restaurant;
-// console.log(name, "\n", openingHours, "\n", categories);
 restaurant.orderDelivery({
   time: "23:30",
-  address: "Gbu",
+  address: "SKD , GBU",
   mainindex: 2,
-  starterIndex: 2,
+  starterIndex: 0,
 });
 
+const { resName, openingHours, categories } = restaurant;
+// console.log(resName, openingHours, categories);
 const {
-  name: restaurantName,
+  resName: restaurantName,
   openingHours: hours,
-  categories: task,
+  categories: tags,
 } = restaurant;
 
-console.log(restaurantName, hours, task);
+// console.log(restaurantName, hours, tags);
 
+//setting Default Values:
 const { menu = [], starterMenu: starters = [] } = restaurant;
+
 console.log(menu, starters);
 
-//mutating variable:
-let a = 111;
-let b = 999;
-
-const obj = { a: 23, b: 7, c: 14 };
-
+//mutating Variables:
+let a = 999;
+let b = 122;
+const obj = { a: 23, b: 7, c: 34 };
 ({ a, b } = obj);
 console.log(a, b);
 
-//nested object Destructuring
-
+//Nested Destructuring:
 const {
   fri: { open: o, close: c },
-} = hours;
+} = openingHours;
 console.log(o, c);
 
 // //example: ARRAY DESTRUCTURING
@@ -86,12 +90,11 @@ console.log(o, c);
 
 // let [main, , secondary] = restaurant.categories;
 // console.log(main, secondary);
-
 // //now if want to switch main and secondary variables:
-// const temp = main;
-// main = secondary;
-// secondary = temp;
-// console.log(main, secondary);
+// // const temp = main;
+// // main = secondary;
+// // secondary = temp;
+// // console.log(main, secondary);
 
 // //same thing using destructuring
 // [main, secondary] = [secondary, main];
@@ -105,7 +108,6 @@ console.log(o, c);
 // const [i, , [j, k]] = nested;
 // console.log(i, j, k);
 
-// //Default values
-
-// const [p = 1, q = 1, r = 1] = [8, 9];
-// console.log(p, q, r);
+// // //Default values
+// // const [p = 1, q = 1, r = 1] = [8, 9];
+// // console.log(p, q, r);
