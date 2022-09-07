@@ -41,8 +41,43 @@ const restaurant = {
   order: function (starterIndex, mainindex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainindex]];
   },
+
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(`Here is you deliciuos pasta with ${ing1} ${ing2} and ${ing3}`);
+  },
 };
 
+//Using Spread Operator:
+
+const newMenu = [...restaurant.mainMenu, "Roti"];
+console.log(newMenu);
+
+//copy arr:
+const mainMenuCopy = [...restaurant.mainMenu];
+console.log(mainMenuCopy);
+
+//joining 2 arrays:
+const fullMenu = [...restaurant.mainMenu, ...restaurant.starterMenu];
+console.log(fullMenu);
+
+//Iterables are arryas, strings, maps and sets but not objecta.
+const str = "jonas";
+const letters = [...str, " ", "S."];
+console.log(letters);
+
+// const inngrdiants = [
+//   prompt("Let's make pasta! ingredients 1?"),
+//   prompt("Let's make pasta! ingredients 2?"),
+//   prompt("Let's make pasta! ingredients 3?"),
+// ];
+// console.log(inngrdiants);
+
+// restaurant.orderPasta(...inngrdiants);
+
+//using Obejects:
+const newRestraunt = { ...restaurant, founder: "Abhishek", foundingYear: 1990 };
+console.log(newRestraunt);
+//////////////////////////////////////////////////////////
 //OBJECT DESTRUCTURING
 
 restaurant.orderDelivery({
@@ -65,20 +100,20 @@ const {
 //setting Default Values:
 const { menu = [], starterMenu: starters = [] } = restaurant;
 
-console.log(menu, starters);
+// console.log(menu, starters);
 
 //mutating Variables:
 let a = 999;
 let b = 122;
 const obj = { a: 23, b: 7, c: 34 };
 ({ a, b } = obj);
-console.log(a, b);
+// console.log(a, b);
 
 //Nested Destructuring:
 const {
   fri: { open: o, close: c },
 } = openingHours;
-console.log(o, c);
+// console.log(o, c);
 
 // //example: ARRAY DESTRUCTURING
 // const arr = [1, 2, 3];
@@ -111,3 +146,8 @@ console.log(o, c);
 // // //Default values
 // // const [p = 1, q = 1, r = 1] = [8, 9];
 // // console.log(p, q, r);
+
+//Spread Operator(...):
+
+const arr = [6, 7, 8];
+const newArr = [1, 2, ...arr];
