@@ -45,6 +45,11 @@ const restaurant = {
   orderPasta: function (ing1, ing2, ing3) {
     console.log(`Here is you deliciuos pasta with ${ing1} ${ing2} and ${ing3}`);
   },
+
+  orderPizza: function (mainIngridient, ...otherIngridients) {
+    console.log(mainIngridient);
+    console.log(otherIngridients);
+  },
 };
 
 //Using Spread Operator:
@@ -72,11 +77,55 @@ console.log(letters);
 // ];
 // console.log(inngrdiants);
 
-// restaurant.orderPasta(...inngrdiants);
-
-//using Obejects:
+//using objects:
 const newRestraunt = { ...restaurant, founder: "Abhishek", foundingYear: 1990 };
 console.log(newRestraunt);
+
+// restaurant.orderPasta(...inngrdiants);
+
+////////////////////////////////////////////////////
+//Using Rest Pattern:
+
+//1) Destructuring
+const [x, y, ...res] = [1, 2, 3, 4, 5, 6];
+console.log(res);
+
+const [Pizza, , Risotto, ...otherfood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+
+console.log(otherfood);
+
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log(weekdays);
+
+//2. Function:
+
+const add = function (...args) {
+  // console.log(args);
+  let sum = 0;
+  for (let val of args) {
+    sum += val;
+  }
+  console.log(sum);
+};
+
+add(2, 3, 4, 5);
+add(2, 3);
+
+const val = [23, 5, 6];
+add(...val);
+
+restaurant.orderPizza(
+  "corn",
+  "extra-cheese",
+  "capsicum",
+  "bell pepper",
+  "thodi si olives",
+  "jalepino"
+);
+
 //////////////////////////////////////////////////////////
 //OBJECT DESTRUCTURING
 
