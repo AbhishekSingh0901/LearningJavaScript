@@ -52,117 +52,159 @@ const restaurant = {
   },
 };
 
-//Using Spread Operator:
+//Short Circuiting (&& and ||)
+console.log("---------------OR---------------");
+console.log(3 || "ab");
 
-const newMenu = [...restaurant.mainMenu, "Roti"];
-console.log(newMenu);
+console.log("" || "ab");
+console.log(true || 0);
+console.log(undefined || null);
+console.log(undefined || 0 || "" || "hello" || 23 || null);
 
-//copy arr:
-const mainMenuCopy = [...restaurant.mainMenu];
-console.log(mainMenuCopy);
+restaurant.numGuests = 23;
+// const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+// console.log(guests1);
+const guests2 = ++restaurant.numGuests || 10;
+console.log(guests2);
 
-//joining 2 arrays:
-const fullMenu = [...restaurant.mainMenu, ...restaurant.starterMenu];
-console.log(fullMenu);
+console.log("---------------AND---------------");
+console.log(3 && "ab");
 
-//Iterables are arryas, strings, maps and sets but not objecta.
-const str = "jonas";
-const letters = [...str, " ", "S."];
-console.log(letters);
+console.log("" && "ab");
+console.log(true && 0);
+console.log(undefined && null);
+console.log(undefined && 0 && "" && "hello" && 23 && null);
 
-// const inngrdiants = [
-//   prompt("Let's make pasta! ingredients 1?"),
-//   prompt("Let's make pasta! ingredients 2?"),
-//   prompt("Let's make pasta! ingredients 3?"),
-// ];
-// console.log(inngrdiants);
+//logical assignment operator:
 
-//using objects:
-const newRestraunt = { ...restaurant, founder: "Abhishek", foundingYear: 1990 };
-console.log(newRestraunt);
-
-// restaurant.orderPasta(...inngrdiants);
-
-////////////////////////////////////////////////////
-//Using Rest Pattern:
-
-//1) Destructuring
-const [x, y, ...res] = [1, 2, 3, 4, 5, 6];
-console.log(res);
-
-const [Pizza, , Risotto, ...otherfood] = [
-  ...restaurant.mainMenu,
-  ...restaurant.starterMenu,
-];
-
-console.log(otherfood);
-
-const { sat, ...weekdays } = restaurant.openingHours;
-console.log(weekdays);
-
-//2. Function:
-
-const add = function (...args) {
-  // console.log(args);
-  let sum = 0;
-  for (let val of args) {
-    sum += val;
-  }
-  console.log(sum);
+const rest1 = {
+  resName: "tapri",
+  guests: 20,
 };
 
-add(2, 3, 4, 5);
-add(2, 3);
+const rest2 = {
+  resName: "TBA",
+  owner: "Me",
+};
 
-const val = [23, 5, 6];
-add(...val);
+rest1.guests ||= 10;
+rest2.guests ||= 10;
 
-restaurant.orderPizza(
-  "corn",
-  "extra-cheese",
-  "capsicum",
-  "bell pepper",
-  "thodi si olives",
-  "jalepino"
-);
+console.log(rest2);
+console.log(rest1.guests, rest2.guests);
 
-//////////////////////////////////////////////////////////
-//OBJECT DESTRUCTURING
+/////////////////////////////////////////////////////////////
+// //Using Spread Operator:
 
-restaurant.orderDelivery({
-  time: "23:30",
-  address: "SKD , GBU",
-  mainindex: 2,
-  starterIndex: 0,
-});
+// const newMenu = [...restaurant.mainMenu, "Roti"];
+// console.log(newMenu);
 
-const { resName, openingHours, categories } = restaurant;
-// console.log(resName, openingHours, categories);
-const {
-  resName: restaurantName,
-  openingHours: hours,
-  categories: tags,
-} = restaurant;
+// //copy arr:
+// const mainMenuCopy = [...restaurant.mainMenu];
+// console.log(mainMenuCopy);
 
-// console.log(restaurantName, hours, tags);
+// //joining 2 arrays:
+// const fullMenu = [...restaurant.mainMenu, ...restaurant.starterMenu];
+// console.log(fullMenu);
 
-//setting Default Values:
-const { menu = [], starterMenu: starters = [] } = restaurant;
+// //Iterables are arryas, strings, maps and sets but not objecta.
+// const str = "jonas";
+// const letters = [...str, " ", "S."];
+// console.log(letters);
 
-// console.log(menu, starters);
+// // const inngrdiants = [
+// //   prompt("Let's make pasta! ingredients 1?"),
+// //   prompt("Let's make pasta! ingredients 2?"),
+// //   prompt("Let's make pasta! ingredients 3?"),
+// // ];
+// // console.log(inngrdiants);
 
-//mutating Variables:
-let a = 999;
-let b = 122;
-const obj = { a: 23, b: 7, c: 34 };
-({ a, b } = obj);
-// console.log(a, b);
+// //using objects:
+// const newRestraunt = { ...restaurant, founder: "Abhishek", foundingYear: 1990 };
+// console.log(newRestraunt);
 
-//Nested Destructuring:
-const {
-  fri: { open: o, close: c },
-} = openingHours;
-// console.log(o, c);
+// // restaurant.orderPasta(...inngrdiants);
+
+// ////////////////////////////////////////////////////
+// //Using Rest Pattern:
+
+// //1) Destructuring
+// const [x, y, ...res] = [1, 2, 3, 4, 5, 6];
+// console.log(res);
+
+// const [Pizza, , Risotto, ...otherfood] = [
+//   ...restaurant.mainMenu,
+//   ...restaurant.starterMenu,
+// ];
+
+// console.log(otherfood);
+
+// const { sat, ...weekdays } = restaurant.openingHours;
+// console.log(weekdays);
+
+// //2. Function:
+
+// const add = function (...args) {
+//   // console.log(args);
+//   let sum = 0;
+//   for (let val of args) {
+//     sum += val;
+//   }
+//   console.log(sum);
+// };
+
+// add(2, 3, 4, 5);
+// add(2, 3);
+
+// const val = [23, 5, 6];
+// add(...val);
+
+// restaurant.orderPizza(
+//   "corn",
+//   "extra-cheese",
+//   "capsicum",
+//   "bell pepper",
+//   "thodi si olives",
+//   "jalepino"
+// );
+
+// //////////////////////////////////////////////////////////
+// //OBJECT DESTRUCTURING
+
+// restaurant.orderDelivery({
+//   time: "23:30",
+//   address: "SKD , GBU",
+//   mainindex: 2,
+//   starterIndex: 0,
+// });
+
+// const { resName, openingHours, categories } = restaurant;
+// // console.log(resName, openingHours, categories);
+// const {
+//   resName: restaurantName,
+//   openingHours: hours,
+//   categories: tags,
+// } = restaurant;
+
+// // console.log(restaurantName, hours, tags);
+
+// //setting Default Values:
+// const { menu = [], starterMenu: starters = [] } = restaurant;
+
+// // console.log(menu, starters);
+
+// //mutating Variables:
+// let a = 999;
+// let b = 122;
+// const obj = { a: 23, b: 7, c: 34 };
+// ({ a, b } = obj);
+// // console.log(a, b);
+
+// //Nested Destructuring:
+// const {
+//   fri: { open: o, close: c },
+// } = openingHours;
+// // console.log(o, c);
 
 // //example: ARRAY DESTRUCTURING
 // const arr = [1, 2, 3];
@@ -196,7 +238,7 @@ const {
 // // const [p = 1, q = 1, r = 1] = [8, 9];
 // // console.log(p, q, r);
 
-//Spread Operator(...):
+// //Spread Operator(...):
 
-const arr = [6, 7, 8];
-const newArr = [1, 2, ...arr];
+// const arr = [6, 7, 8];
+// const newArr = [1, 2, ...arr];
