@@ -70,14 +70,14 @@ btnRoll.addEventListener("click", function () {
 
 btnHold.addEventListener("click", function () {
   if (playing) {
-    //1. Add current score to active player's sc0re
+    //1. Add current score to active player's score
     scores[activePlayer] += currentScore;
 
     document.getElementById(`score--${activePlayer}`).textContent =
       scores[activePlayer];
 
     //2.Check if score is >= hundred
-    if (scores[activePlayer] >= 100) {
+    if (scores[activePlayer] >= 10) {
       //true = Finish the Game
       playing = false;
       diceEL.classList.add("hidden");
