@@ -57,3 +57,8 @@ const [i, , j] = nested;
 const [m, , [n, o]] = nested;
 
 console.log(i, j, m, n, o);
+
+//default values
+const myarr = [4, 2];
+const [f = 1, , g = 1] = myarr;
+console.log(f, g);
