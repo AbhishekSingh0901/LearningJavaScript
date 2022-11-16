@@ -29,36 +29,89 @@ const restaurant = {
       close: 24,
     },
   },
+
+  orderDelivery: function (
+    {
+      starterIndex = 1,
+      mainIndex = 0,
+      time = "20:00",
+      address,
+    } /*these curly braces are really important for destructuring the object*/
+  ) {
+    console.log(
+      `order recieved! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be deliverd to ${address} at ${time}`
+    );
+  },
 };
 
-//Destructurig Arrays
-const arr = [1, 2, 3];
-const [a, b, c] = arr;
-console.log(a, b, c);
+//Desrututring Obejcts: we use curly braces-
+const { name, openingHours, categories } = restaurant;
+// console.log(name, openingHours, categories);
 
-const [first, , third] = restaurant.categories;
-console.log(first, third);
+//*using obj in  functions as arguments:
+restaurant.orderDelivery({
+  time: "22:30",
+  address: "F-7, SKd, gbu",
+  mainIndex: 2,
+  starterIndex: 2,
+});
+const {
+  name: restaurantName,
+  openingHours: hours,
+  categories: tags,
+} = restaurant;
+// console.log(restaurantName, hours, tags);
 
-//aonther use case:
-let [firtStarter, secondStarter] = restaurant.starterMenu;
-console.log(firtStarter, secondStarter);
-[firtStarter, secondStarter] = [secondStarter, firtStarter];
-console.log(firtStarter, secondStarter);
+//giving default values:
+const { menu = [], starterMenu: starters = [] } = restaurant;
+console.log(menu, starters);
 
-console.log(restaurant.order(2, 0));
+//mutating variables
+let a = 111;
+let b = 999;
 
-const [starter, main] = restaurant.order(2, 0);
-console.log(starter, main);
+const obj = {
+  a: 23,
+  b: 7,
+  c: 14,
+};
+({ a, b } = obj); //*wrap everything in paraenthesis*/
 
-//in case of nested array
+//Nested Objects:
+const {
+  fri: { open: o, close: c },
+} = openingHours;
+console.log(o, c);
 
-const nested = [2, 3, [4, 5]];
-const [i, , j] = nested;
-const [m, , [n, o]] = nested;
+//*************************************************/
+// //Destructurig Arrays
+// const arr = [1, 2, 3];
+// const [a, b, c] = arr;
+// console.log(a, b, c);
 
-console.log(i, j, m, n, o);
+// const [first, , third] = restaurant.categories;
+// console.log(first, third);
 
-//default values
-const myarr = [4, 2];
-const [f = 1, , g = 1] = myarr;
-console.log(f, g);
+// //aonther use case:
+// let [firtStarter, secondStarter] = restaurant.starterMenu;
+// console.log(firtStarter, secondStarter);
+// [firtStarter, secondStarter] = [secondStarter, firtStarter];
+// console.log(firtStarter, secondStarter);
+
+// console.log(restaurant.order(2, 0));
+
+// const [starter, main] = restaurant.order(2, 0);
+// console.log(starter, main);
+
+// //in case of nested array
+
+// const nested = [2, 3, [4, 5]];
+// const [i, , j] = nested;
+// const [m, , [n, o]] = nested;
+
+// console.log(i, j, m, n, o);
+
+// //default values
+// const myarr = [4, 2];
+// const [f = 1, , g = 1] = myarr;
+// console.log(f, g);
