@@ -48,44 +48,82 @@ const restaurant = {
       `Heres is your delicious pasta with ${ing1}, ${ing2} and ${ing3} is getting prepared!`
     );
   },
+
+  orderPizza: function (mianIngredient, ...otherIngridients) {
+    console.log(mianIngredient);
+    console.log(otherIngridients);
+  },
 };
 
-const arr = [7, 8, 9];
-//using spread operator
-const newArr = [1, 2, ...arr];
-console.log(newArr);
-console.log(...newArr);
+// const arr = [7, 8, 9];
+// //using spread operator
+// const newArr = [1, 2, ...arr];
+// console.log(newArr);
+// console.log(...newArr);
 
-console.log([...restaurant.mainMenu, "Chhole"]);
+// console.log([...restaurant.mainMenu, "Chhole"]);
 
-//use case 1 - Creating Shallow copies
-const mainMenuCopy = [...restaurant.mainMenu];
+// //use case 1 - Creating Shallow copies
+// const mainMenuCopy = [...restaurant.mainMenu];
 
-//use case 2 - join 2 arrays
-const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
-console.log(menu);
+// //use case 2 - join 2 arrays
+// const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+// console.log(menu);
 
-//works on all iterables:
-const str = "Abhishek";
-const letters = [...str];
-console.log(letters);
+// //works on all iterables:
+// const str = "Abhishek";
+// const letters = [...str];
+// console.log(letters);
 
-// const ingridients = [
-//   prompt(`let\'s make pasta! Ingridient 1?`),
-//   prompt(`Ingridient 2?`),
-//   prompt(`Ingridient 3?`),
-// ];
+// // const ingridients = [
+// //   prompt(`let\'s make pasta! Ingridient 1?`),
+// //   prompt(`Ingridient 2?`),
+// //   prompt(`Ingridient 3?`),
+// // ];
 
-// console.log(ingridients);
+// // console.log(ingridients);
 
-// restaurant.orderPasta(...ingridients);
+// // restaurant.orderPasta(...ingridients);
 
-//recently we can also use it in //*obects*/
-const newRestaurant = { foundIn: 1986, ...restaurant, founder: "kirodimal" };
-console.log(newRestaurant);
+// //recently we can also use it in //*obects*/
+// const newRestaurant = { foundIn: 1986, ...restaurant, founder: "kirodimal" };
+// console.log(newRestaurant);
 
-//proof that it makes copies and not points to the same object:
-const restaurantCopy = { ...restaurant };
-restaurantCopy.name = "Roma Romante";
-console.log(restaurantCopy.name);
-console.log(restaurant.name);
+// //proof that it makes copies and not points to the same object:
+// const restaurantCopy = { ...restaurant };
+// restaurantCopy.name = "Roma Romante";
+// console.log(restaurantCopy.name);
+// console.log(restaurant.name);
+
+//*Using rest pattern:
+
+//Destructuring
+const [a, b, ...others] = [1, 2, 3, 4, 5];
+console.log(a, b, others);
+
+const [Pizza, , Risotto, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+console.log(Pizza, Risotto, otherFood);
+
+//using these in objects:
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log(weekdays);
+
+//Fucntion
+const add = function (...numbers) {
+  let sum = 0;
+  for (let i in numbers) {
+    sum += numbers[i];
+  }
+  console.log(sum);
+};
+
+add(2, 3);
+add(5, 3, 4, 2);
+
+const x = [23, 5, 7];
+add(...x);
+
+restaurant.orderPizza("mushrooms", "onions", "corn", "cheese");
