@@ -139,12 +139,18 @@ console.log("" || "Jonas"); //jonas
 console.log(true || 0); //true
 console.log(undefined || null); //null
 
-restaurant.numGueast = 23;
+restaurant.numGueast = 0;
 const guests = restaurant.numGueast ? restaurant.numGueast : 10;
 console.log(guests);
 //another example of short circuiting
 const guests2 = restaurant.numGueast || 10;
+console.log(guests2);
+//*correcting te above issue of guest2 returning 10 but it should be returning 0 using NULLISH operator (??)
+//Nullish values - null and undefiens
+const guestsCorrect = restaurant.numGueast ?? 10;
+console.log(guestsCorrect);
 
+/////////////////////////////////////////
 console.log("-----AND-----");
 
 console.log(3 && "jonas"); //jonas
