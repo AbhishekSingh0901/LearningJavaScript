@@ -130,3 +130,30 @@ const restaurant = {
 // add(...x);
 
 // restaurant.orderPizza("mushrooms", "onions", "corn", "cheese");
+
+//* Short Circuiting
+
+console.log("-----OR-----");
+console.log(3 || "jonas"); //3
+console.log("" || "Jonas"); //jonas
+console.log(true || 0); //true
+console.log(undefined || null); //null
+
+restaurant.numGueast = 23;
+const guests = restaurant.numGueast ? restaurant.numGueast : 10;
+console.log(guests);
+//another example of short circuiting
+const guests2 = restaurant.numGueast || 10;
+
+console.log("-----AND-----");
+
+console.log(3 && "jonas"); //jonas
+console.log("" && "Jonas"); //
+console.log(true && 0); //0
+console.log(undefined && null); //undefined
+
+if (restaurant.orderPizza) {
+  restaurant.orderPizza("mushrooms", "spinach");
+}
+//another use case of short circuiting
+restaurant.orderPizza && restaurant.orderPizza("mushrooms", "spinach");
