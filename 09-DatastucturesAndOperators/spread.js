@@ -163,3 +163,32 @@ if (restaurant.orderPizza) {
 }
 //another use case of short circuiting
 restaurant.orderPizza && restaurant.orderPizza("mushrooms", "spinach");
+
+//* Logical Assignment operators
+const rest1 = {
+  name: "capri",
+  numGuests: 0,
+};
+
+const rest2 = {
+  name: "la Piazza",
+  owner: "Giovanni Rossi",
+};
+
+//Logical OR aassignment operator
+// rest1.numGuests ||= 10;
+// rest2.numGuests ||= 10;
+
+console.log(rest1); // 10 we have an issue here 0 is a falsy value due to which rest1.numguest is being assigned 10 too
+console.log(rest2); //10 correct because in rest2 numguest does not exist
+
+//overcoming the above problem nullish operator
+rest1.numGuests ??= 10;
+rest2.numGuests ??= 10;
+// console.log(rest1);
+// console.log(rest2);
+
+//Logical AND assignment operator:
+
+rest2.owner &&= "<ANONYMOUS>";
+console.log(rest2);
