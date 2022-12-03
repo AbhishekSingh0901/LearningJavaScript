@@ -192,3 +192,14 @@ rest2.numGuests ??= 10;
 
 rest2.owner &&= "<ANONYMOUS>";
 console.log(rest2);
+
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+
+for (const item of menu) {
+  console.log(item);
+}
+
+for (const [i, el] of menu.entries()) {
+  //destructuring is used
+  console.log(`${i + 1}: ${el}`);
+}
