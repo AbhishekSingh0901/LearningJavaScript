@@ -215,3 +215,10 @@ for (const day of days) {
 //using with Methods
 console.log(restaurant.order?.(0, 1) ?? "method does not exist");
 console.log(restaurant.orderRissoto?.(0, 1) ?? "method does not exist");
+
+//Looping Objects
+const entries = Object.entries(openingHours);
+
+for (const [key, { open, close }] of entries) {
+  console.log(`On ${key}, we open at ${open}, and close at ${close}`);
+}
