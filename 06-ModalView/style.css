@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Rubik+Vinyl&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +11,7 @@ html {
 }
 
 body {
-  font-family: sans-serif;
+  font-family: 'Lato', sans-serif;
   color: #333;
   line-height: 1.5;
   height: 100vh;
@@ -18,19 +19,18 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  background-image: url("abstract.jpg");
+  background-image: url('absract.jpg');
   background-color: aliceblue;
 }
 
 .show-modal {
+  font-family: 'Lato', sans-serif;
   font-size: 2rem;
-  font-weight: 600;
   padding: 1.75rem 3.5rem;
   margin: 5rem 2rem;
-  border: solid 3px whitesmoke;
-  background-color: rgb(3, 48, 44);
+  border: solid 2px whitesmoke;
+  background-color: rgb(3, 53, 82);
   color: rgb(255, 250, 250);
-  border-radius: 10rem;
   cursor: pointer;
 }
 
