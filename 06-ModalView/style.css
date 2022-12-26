@@ -24,14 +24,15 @@ body {
 }
 
 .show-modal {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 2rem;
   padding: 1.75rem 3.5rem;
   margin: 5rem 2rem;
-  border: solid 2px whitesmoke;
+  border: solid 2px rgb(255, 103, 103);
   background-color: rgb(3, 53, 82);
-  color: rgb(255, 250, 250);
+  color: rgb(231, 249, 254);
   cursor: pointer;
+  border-radius: 100px;
 }
 
 .close-modal {
@@ -66,7 +67,7 @@ p {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
-
+  font-family: inherit;
   background-color: rgb(237, 237, 237);
   padding: 6rem;
   border-radius: 5px;
