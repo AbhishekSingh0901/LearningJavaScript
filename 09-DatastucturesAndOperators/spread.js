@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
 // Data needed for a later exercise
 const flights =
-  "_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30";
+  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
-const weekdays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 const openingHours = {
   [weekdays[3]]: {
     open: 12,
@@ -21,11 +21,11 @@ const openingHours = {
 };
 // Data needed for first part of the section
 const restaurant = {
-  name: "Classico Italiano",
-  location: "Via Angelo Tavanti 23, Firenze, Italy",
-  categories: ["Italian", "Pizzeria", "Vegetarian", "Organic"],
-  starterMenu: ["Focaccia", "Bruschetta", "Garlic Bread", "Caprese Salad"],
-  mainMenu: ["Pizza", "Pasta", "Risotto"],
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavanti 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
   order(starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
@@ -37,7 +37,7 @@ const restaurant = {
     {
       starterIndex = 1,
       mainIndex = 0,
-      time = "20:00",
+      time = '20:00',
       address,
     } /*these curly braces are really important for destructuring the object*/
   ) {
@@ -133,9 +133,9 @@ add(5, 3, 4, 2);
 
 //* Short Circuiting
 
-console.log("-----OR-----");
-console.log(3 || "jonas"); //3
-console.log("" || "Jonas"); //jonas
+console.log('-----OR-----');
+console.log(3 || 'jonas'); //3
+console.log('' || 'Jonas'); //jonas
 console.log(true || 0); //true
 console.log(undefined || null); //null
 
@@ -151,28 +151,28 @@ const guestsCorrect = restaurant.numGueast ?? 10;
 console.log(guestsCorrect);
 
 /////////////////////////////////////////
-console.log("-----AND-----");
+console.log('-----AND-----');
 
-console.log(3 && "jonas"); //jonas
-console.log("" && "Jonas"); //
+console.log(3 && 'jonas'); //jonas
+console.log('' && 'Jonas'); //
 console.log(true && 0); //0
 console.log(undefined && null); //undefined
 
 if (restaurant.orderPizza) {
-  restaurant.orderPizza("mushrooms", "spinach");
+  restaurant.orderPizza('mushrooms', 'spinach');
 }
 //another use case of short circuiting
-restaurant.orderPizza && restaurant.orderPizza("mushrooms", "spinach");
+restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
 
 //* Logical Assignment operators
 const rest1 = {
-  name: "capri",
+  name: 'capri',
   numGuests: 0,
 };
 
 const rest2 = {
-  name: "la Piazza",
-  owner: "Giovanni Rossi",
+  name: 'la Piazza',
+  owner: 'Giovanni Rossi',
 };
 
 //Logical OR aassignment operator
@@ -190,7 +190,7 @@ rest2.numGuests ??= 10;
 
 //Logical AND assignment operator:
 
-rest2.owner &&= "<ANONYMOUS>";
+rest2.owner &&= '<ANONYMOUS>';
 console.log(rest2);
 
 const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
@@ -205,16 +205,16 @@ for (const [i, el] of menu.entries()) {
 }
 
 //*        Optional Chaining        //
-const days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
 for (const day of days) {
-  const open = restaurant.openingHours[day]?.open ?? "closed";
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
   console.log(`on ${day}, we open at ${open}`);
 }
 
 //using with Methods
-console.log(restaurant.order?.(0, 1) ?? "method does not exist");
-console.log(restaurant.orderRissoto?.(0, 1) ?? "method does not exist");
+console.log(restaurant.order?.(0, 1) ?? 'method does not exist');
+console.log(restaurant.orderRissoto?.(0, 1) ?? 'method does not exist');
 
 //Looping Objects
 const entries = Object.entries(openingHours);
@@ -222,3 +222,28 @@ const entries = Object.entries(openingHours);
 for (const [key, { open, close }] of entries) {
   console.log(`On ${key}, we open at ${open}, and close at ${close}`);
 }
+
+//Working with Sets
+const ordersSet = new Set([
+  'Pasta',
+  'Pizza',
+  'Pizza',
+  'Risotto',
+  'Pasta',
+  'Pizza',
+]);
+
+function addmystr(str) {
+  return 'no ' + str;
+}
+ordersSet.add('Fetuchinni');
+ordersSet.delete('Risotto');
+ordersSet.has('Pizza');
+
+const letters = new Set(['a', 'b', 'c']);
+// List all entries
+let text = '';
+letters.forEach(function (value) {
+  text += value;
+});
+console.log(text);
