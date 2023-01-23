@@ -247,3 +247,40 @@ letters.forEach(function (value) {
   text += value;
 });
 console.log(text);
+
+//Working with Maps
+const rest = new Map();
+rest.set('name', 'Classico Italiano');
+rest.set(1, 'TRK');
+rest
+  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+  .set('Open', 11)
+  .set('close', 23)
+  .set(true, 'We are open :D')
+  .set(false, 'We are closed :(');
+console.log(rest.get(true));
+const time = 21;
+rest.get(time > rest.get('open') && time < rest.get('close'));
+
+const question = new Map([
+  ['question', 'What is the best language in the world?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'JS'],
+  ['correct', 3],
+  [true, 'Correct🎖️'],
+  [false, 'Wrong😒'],
+]);
+
+// console.log(question.get('question'));
+// for (let [key, value] of question) {
+//   if (typeof key === 'number') {
+//     console.log(`Answer ${key}: ${value}`);
+//   }
+// }
+
+// const answer = Number(prompt('Your Answer!'));
+// alert(question.get(answer === question.get('correct')));
+
+//Map to an Array
+console.log([...question]);
