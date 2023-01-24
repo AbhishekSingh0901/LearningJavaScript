@@ -284,3 +284,66 @@ const question = new Map([
 
 //Map to an Array
 console.log([...question]);
+
+//* Working with strings
+
+const airline = 'Air India';
+const plane = 'B777';
+
+console.log(airline.indexOf('g'));
+console.log(airline.lastIndexOf('i'));
+
+console.log(airline.slice(4, 7));
+
+const checkMiddleSeat = function (seat) {
+  //B and E are middle seats
+  const seatChar = seat.slice(-1);
+  if (seatChar === 'B' || seatChar === 'E') {
+    console.log(`you got the middle seat!`);
+  } else {
+    console.log('You got lucky!');
+  }
+};
+
+checkMiddleSeat('11B');
+checkMiddleSeat('23C');
+checkMiddleSeat('21A');
+
+//Fixing capitalisation in a name:
+const passengerName = 'JOnaS';
+const LowerCaseName = passengerName.toLowerCase();
+console.log(LowerCaseName);
+const passengerCorrectName =
+  passengerName[0].toUpperCase() + LowerCaseName.slice(1);
+console.log(passengerCorrectName);
+
+//Comparing emails
+const email = 'hello@jonas.io';
+const loginMail = ' Hello@Jonas.Io \n';
+const trimmedMail = loginMail.toLowerCase().trim();
+console.log(trimmedMail);
+
+//replacing
+const announcement =
+  'All passenger are rquested to come to door 23. Boearing door 23!';
+
+console.log(announcement.replaceAll('door', 'gate'));
+
+//using regex
+console.log(announcement.replace(/door/g, 'gate')); //g stands for global
+
+//practice exercise
+
+const checkBaggage = function (items) {
+  const baggage = items.toLowerCase();
+
+  if (baggage.includes('knife') || baggage.includes('gun')) {
+    console.log('You cannot enter the Plane!');
+  }
+};
+
+//padding:
+
+const message = 'Go to gate 23!';
+console.log(message.padStart(25, '+'));
+console.log('Abhishek'.padStart(25, '+'));
