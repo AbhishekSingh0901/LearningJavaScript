@@ -172,38 +172,114 @@ data. Use both the 'array' and the 'string' option. Do not put the arrays in the
 object! So what should the this keyword look like in this situation?
 */
 
-const poll = {
-  question: 'What is your favourite programming language?',
-  options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
-  // This generates [0, 0, 0, 0]. More in the next section!
-  answers: new Array(4).fill(0),
+// const poll = {
+//   question: 'What is your favourite programming language?',
+//   options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
+//   // This generates [0, 0, 0, 0]. More in the next section!
+//   answers: new Array(4).fill(0),
 
-  registerNewAnswer() {
-    const reply = Number(
-      prompt(
-        `${this.question}\n${this.options.join('\n')} (Write option number)`
-      )
-    );
-    console.log(reply);
+//   registerNewAnswer() {
+//     const reply = Number(
+//       prompt(
+//         `${this.question}\n${this.options.join('\n')} (Write option number)`
+//       )
+//     );
+//     console.log(reply);
 
-    if (typeof reply === 'number' && reply < this.answers.length)
-      this.answers[reply]++;
+//     if (typeof reply === 'number' && reply < this.answers.length)
+//       this.answers[reply]++;
 
-    this.displayResults();
-    this.displayResults('string');
-  },
+//     this.displayResults();
+//     this.displayResults('string');
+//   },
 
-  displayResults(type = 'array') {
-    if (type === 'array') {
-      console.log(this.answers);
-    } else if (type === 'string') {
-      console.log(`the Poll results are ${this.answers.join(', ')}`);
-    }
-  },
+//   displayResults(type = 'array') {
+//     if (type === 'array') {
+//       console.log(this.answers);
+//     } else if (type === 'string') {
+//       console.log(`the Poll results are ${this.answers.join(', ')}`);
+//     }
+//   },
+// };
+
+// document
+//   .querySelector('.poll')
+//   .addEventListener('click', poll.registerNewAnswer.bind(poll));
+
+// poll.displayResults.call({ answers: [5, 2, 3] }, 'string');
+
+//Closures:
+const secureBooking = function () {
+  let passengerCount = 0;
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passesngers`);
+  };
 };
 
-document
-  .querySelector('.poll')
-  .addEventListener('click', poll.registerNewAnswer.bind(poll));
+const booker = secureBooking();
 
-poll.displayResults.call({ answers: [5, 2, 3] }, 'string');
+booker();
+booker();
+booker();
+
+console.dir(booker);
+
+//more Examples
+let f;
+
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  const b = 777;
+  f = function () {
+    console.log(b * 2);
+  };
+};
+
+g();
+f();
+console.dir(f);
+//reassigning f by calling h;
+h();
+f();
+console.dir(f);
+
+//Example 2:
+const bordPassengers = function (n, wait) {
+  const perGroup = n / 3;
+  setTimeout(function () {
+    console.log(`we are now boarding all ${n} passengers`);
+    console.log(`there are 3 Groups, each with ${perGroup} passengers`);
+  }, wait * 1000);
+  console.log(`will start bearding in ${wait}`);
+};
+
+bordPassengers(180, 3);
+
+/*Closure Challenge:
+
+Coding Challenge #2
+This is more of a thinking challenge than a coding challenge �
+Your tasks:
+1. Take the IIFE below and at the end of the function, attach an event listener that 
+changes the color of the selected h1 element ('header') to blue, each time 
+the body element is clicked. Do not select the h1 element again!
+2. And now explain to yourself (or someone around you) why this worked! Take all 
+the time you need. Think about when exactly the callback function is executed, 
+and what that means for the variables involved in this example.
+*/
+
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+
+  document.querySelector('body').addEventListener('click', function () {
+    header.style.color = 'blue';
+  });
+})();
