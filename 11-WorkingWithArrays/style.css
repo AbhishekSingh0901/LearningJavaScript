@@ -16,9 +16,9 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: #444;
-  background-color: #f3f3f3;
+  background-color: #ededed;
   height: 100vh;
   padding: 2rem;
 }
@@ -28,6 +28,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
+  margin-bottom: 9rem;
 }
 
 .welcome {
@@ -36,7 +37,7 @@ nav {
 }
 
 .logo {
-  height: 5.25rem;
+  height: 8rem;
 }
 
 .login {
@@ -68,9 +69,15 @@ nav {
 
 .login__btn {
   border: none;
-  background: none;
-  font-size: 2.2rem;
-  color: inherit;
+  background: linear-gradient(to top left, #757676, #333433);
+  color: #bbb;
+  padding: 0.5rem 2rem;
+  font-size: 1.6rem;
+  font-family: inherit;
+  text-align: center;
+  width: 12rem;
+  border-radius: 10rem;
+  margin-right: 1rem;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -80,7 +87,8 @@ nav {
 .btn--sort:hover,
 .btn--sort:focus {
   outline: none;
-  color: #777;
+  color: #f7f7f7;
+  background: linear-gradient(to top left, #626363, #1f201f);
 }
 
 /* MAIN */
@@ -94,8 +102,8 @@ nav {
   gap: 2rem;
 
   /* NOTE This creates the fade in/out anumation */
-  opacity: 0;
-  transition: all 1s;
+  opacity: 1;
+  transition: all 0.5s;
 }
 
 .balance {

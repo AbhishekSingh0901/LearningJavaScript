@@ -61,61 +61,84 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const diplayMovements = function (movements) {
+  console.log(containerMovements.innerHTML);
+  containerMovements.innerHTML = '';
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type} </div>
+
+      <div class="movements__value">${mov}</div>
+    </div>
+    `;
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+diplayMovements(account1.movements);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 
+// let arr = ['a', 'b', 'c', 'c', 'd', 'e'];
+
+// //slice method:
+// console.log(arr.slice(2));
+// console.log(arr.slice(2, 4));
+// console.log(arr.slice(-2));
+// console.log(arr.slice(-1));
+// console.log(arr.slice(1, -2));
+
+// //splice method: it mutates the array
+// arr.splice(2, 2, 'f', 'g', 'h');
+// console.log(arr);
+
+// //Reverse
+// arr = ['a', 'b', 'c', 'd'];
+// const arr2 = ['h', 'g', 'f', 'e'];
+// arr2.reverse();
+// //reverse also mutates the original array
+// console.log(arr2);
+
+// //Join
+// const letters = arr.concat(arr2);
+
+// console.log(letters.join(' - '));
+
+// //array 'at' method - it also works on strings
+
+// console.log(arr.at(0));
+// console.log(arr.at(-1));
+
+// //forEach Method:
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// for (const movement of movements) {
+//   if (movement > 0) {
+//     console.log(`You deposited ${movement}`);
+//   } else console.log(`You deposited ${Math.abs(movement)}`);
+// }
+
+// console.log('--------FOR EACH-------');
+
+// movements.forEach(function (movement, i, array) {
+//   if (movement > 0) {
+//     console.log(`Movement ${i + 1} You deposited ${movement}`);
+//   } else console.log(`Movement ${i + 1} You deposited ${Math.abs(movement)}`);
+// });
+
+//for each on a map
 const currencies = new Map([
   ['USD', 'United States dollar'],
   ['EUR', 'Euro'],
   ['GBP', 'Pound sterling'],
 ]);
 
-/////////////////////////////////////////////////
-
-let arr = ['a', 'b', 'c', 'c', 'd', 'e'];
-
-//slice method:
-console.log(arr.slice(2));
-console.log(arr.slice(2, 4));
-console.log(arr.slice(-2));
-console.log(arr.slice(-1));
-console.log(arr.slice(1, -2));
-
-//splice method: it mutates the array
-arr.splice(2, 2, 'f', 'g', 'h');
-console.log(arr);
-
-//Reverse
-arr = ['a', 'b', 'c', 'd'];
-const arr2 = ['h', 'g', 'f', 'e'];
-arr2.reverse();
-//reverse also mutates the original array
-console.log(arr2);
-
-//Join
-const letters = arr.concat(arr2);
-
-console.log(letters.join(' - '));
-
-//array 'at' method - it also works on strings
-
-console.log(arr.at(0));
-console.log(arr.at(-1));
-
-//forEach Method:
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
-for (const movement of movements) {
-  if (movement > 0) {
-    console.log(`You deposited ${movement}`);
-  } else console.log(`You deposited ${Math.abs(movement)}`);
-}
-
-console.log('--------FOR EACH-------');
-
-movements.forEach(function (movement, i, array) {
-  if (movement > 0) {
-    console.log(`Movement ${i + 1} You deposited ${movement}`);
-  } else console.log(`Movement ${i + 1} You deposited ${Math.abs(movement)}`);
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
 });
