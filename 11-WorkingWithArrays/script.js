@@ -81,6 +81,20 @@ const diplayMovements = function (movements) {
 };
 
 diplayMovements(account1.movements);
+
+//using forEach() and Map() methods
+const createUserNames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.userName = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(word => word[0])
+      .join('');
+  });
+};
+
+createUserNames(accounts);
+console.log(account1, account2, account3, account4);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -187,3 +201,32 @@ const checkDogs = function (dogsJulia, dogsKate) {
 checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
 console.log('**********************SECOND DATA***********************');
 checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+
+//*My own practice:
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// const newMsvi = movements.map(function (movement, i) {
+//   if (movement > 0) {
+//     return `Movement ${i + 1} You deposited ${movement}`;
+//   } else return `Movement ${i + 1} You deposited ${Math.abs(movement)}`;
+// });
+// console.log(newMsvi);
+// console.log(movements);
+
+const euroToUsd = 1.1;
+
+const movementsUSD = movements.map(mov => mov * euroToUsd);
+
+const newMD = movements.map(
+  (movement, i) =>
+    //refactor
+    `Movement ${i + 1} You ${
+      movement > 0 ? 'deposited' : 'withdrew'
+    } ${movement}`
+
+  // if (movement > 0) {
+  //   return `Movement ${i + 1} You deposited ${movement}`;
+  // } else return `Movement ${i + 1} You withdrew ${Math.abs(movement)}`;
+);
+
+console.log(newMD);
