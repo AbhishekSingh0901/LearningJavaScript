@@ -272,8 +272,7 @@ const max = movements.reduce(
 console.log(max);
 
 //*Challenge 2
-/*Coding Challenge #2
-
+/*
 Let's go back to Julia and Kate's study about dogs. This time, they want to convert 
 dog ages to human ages and calculate the average age of the dogs in their study.
 Your tasks:
@@ -296,3 +295,14 @@ Test data:
 § Data 1: [5, 2, 4, 1, 15, 8, 3]
 § Data 2: [16, 6, 10, 5, 6, 1, 4]
 */
+const calcAverageHumanAge = function (dogsAge) {
+  const adults = dogsAge
+    .map(age => (age > 2 ? 16 + age * 4 : age * 2))
+    .filter(age => age >= 18);
+  const length = adults.length;
+  const average = adults.reduce((acc, age, i, arr) => acc + age, 0) / length;
+  console.log(adults);
+  console.log(average);
+};
+
+calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
