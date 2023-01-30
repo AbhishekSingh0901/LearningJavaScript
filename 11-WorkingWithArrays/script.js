@@ -62,7 +62,7 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 const diplayMovements = function (movements) {
-  console.log(containerMovements.innerHTML);
+  // console.log(containerMovements.innerHTML);
   containerMovements.innerHTML = '';
   movements.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
@@ -79,16 +79,16 @@ const diplayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-diplayMovements(account1.movements);
 
 //Displaying Current Balence:
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, cur) => acc + cur, 0);
-  labelBalance.textContent = `₹${balance} `;
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, cur) => acc + cur, 0);
+  labelBalance.textContent = `₹${acc.balance} `;
 };
-calcDisplayBalance(account1.movements);
+calcDisplayBalance(account1);
 
 //using forEach() and Map() methods
+
 const createUserNames = function (accs) {
   accs.forEach(function (acc) {
     acc.userName = acc.owner
@@ -101,30 +101,67 @@ const createUserNames = function (accs) {
 createUserNames(accounts);
 
 //calculation account Summary
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
 
   labelSumIn.textContent = `₹${incomes}`;
 
-  const out = movements
+  const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + Math.abs(mov), 0);
 
   labelSumOut.textContent = `₹${out}`;
 
-  const interest = movements
+  const interest = acc.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * acc.interestRate) / 100)
     .filter(int => int >= 1)
     .reduce((acc, int) => acc + int, 0);
 
   labelSumInterest.textContent = `₹${interest}`;
 };
-calcDisplaySummary(account1.movements);
+// calcDisplaySummary(account1.movements);
 
-// console.log(account1, account2, account3, account4);
+//Event Handeler:
+let currentAccount;
+
+//Event Handelers:
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault(); //this will prevent this form from submitting
+  currentAccount = accounts.find(
+    acc => acc.userName === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    //Display UI and welcome message
+    labelWelcome.textContent = `Wlcome back ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+
+    //Clearing input fields:
+    inputLoginPin.value = inputLoginUsername.value = '';
+    inputLoginPin.blur();
+
+    //Display Balance
+    calcDisplayBalance(currentAccount);
+    //Display Summary
+    calcDisplaySummary(currentAccount);
+    //Display movements
+    diplayMovements(currentAccount.movements);
+  }
+});
+
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const reciverAcc = accounts.find(
+    acc => (acc.userName = inputTransferTo.value)
+  );
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -178,15 +215,15 @@ calcDisplaySummary(account1.movements);
 // });
 
 //for each on a map
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
-currencies.forEach(function (value, key, map) {
-  console.log(`${key}: ${value}`);
-});
+// currencies.forEach(function (value, key, map) {
+//   console.log(`${key}: ${value}`);
+// });
 
 //*Challenge 1:
 
@@ -217,25 +254,25 @@ Test data:
 § Data 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
 Hints: Use tools from all lectures in this section so far �
 */
-let julia = [3, 5, 2, 12, 7];
-console.log(julia.slice(1, -2));
+// let julia = [3, 5, 2, 12, 7];
+// console.log(julia.slice(1, -2));
 
-const checkDogs = function (dogsJulia, dogsKate) {
-  const correctDogsJulia = dogsJulia.slice(1, -2);
-  const totalDogs = [...correctDogsJulia, ...dogsKate];
-  totalDogs.forEach(function (dog, i, arr) {
-    const age = dog < 3 ? 'still a puppy' : 'an adult';
-    console.log(`Dog number ${i + 1} is ${age}`);
-  });
-};
+// const checkDogs = function (dogsJulia, dogsKate) {
+//   const correctDogsJulia = dogsJulia.slice(1, -2);
+//   const totalDogs = [...correctDogsJulia, ...dogsKate];
+//   totalDogs.forEach(function (dog, i, arr) {
+//     const age = dog < 3 ? 'still a puppy' : 'an adult';
+//     console.log(`Dog number ${i + 1} is ${age}`);
+//   });
+// };
 
-checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
-console.log('**********************SECOND DATA***********************');
-checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+// checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+// console.log('**********************SECOND DATA***********************');
+// checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 
-//*My own practice:
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-console.log(movements);
+// //*My own practice:
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// console.log(movements);
 // const newMsvi = movements.map(function (movement, i) {
 //   if (movement > 0) {
 //     return `Movement ${i + 1} You deposited ${movement}`;
@@ -299,38 +336,38 @@ console.log(movements);
 
 //conversion to USD and summing the depasites:
 
-console.log(movements);
+// console.log(movements);
 
-const euroToUsd = 1.1;
-const totalDepositsUSD = movements
-  .filter(mov => mov > 0)
-  .map(mov => mov * euroToUsd)
-  .reduce((acc, mov) => acc + mov, 0);
+// const euroToUsd = 1.1;
+// const totalDepositsUSD = movements
+//   .filter(mov => mov > 0)
+//   .map(mov => mov * euroToUsd)
+//   .reduce((acc, mov) => acc + mov, 0);
 
-console.log(totalDepositsUSD);
+// console.log(totalDepositsUSD);
 
-//The find Method:
-const firstWithdrawal = movements.find(function (mov) {
-  return mov < 0;
-});
-console.log(firstWithdrawal);
+// //The find Method:
+// const firstWithdrawal = movements.find(function (mov) {
+//   return mov < 0;
+// });
+// console.log(firstWithdrawal);
 
-//another Example:
-console.log(accounts);
-const account = accounts.find(acc => acc.owner === 'Jessica Davis');
-console.log(account);
+// //another Example:
+// console.log(accounts);
+// const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+// console.log(account);
 
-//using for of loop:
+// //using for of loop:
 
-const accFor = function (accounts) {
-  for (let account of accounts) {
-    if (account.owner === 'Jessica Davis') {
-      return account;
-    }
-  }
-};
+// const accFor = function (accounts) {
+//   for (let account of accounts) {
+//     if (account.owner === 'Jessica Davis') {
+//       return account;
+//     }
+//   }
+// };
 
-console.log(accFor(accounts));
+// console.log(accFor(accounts));
 
 //*Challenge 2 & 3 comibined
 /*
