@@ -85,7 +85,7 @@ const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, cur) => acc + cur, 0);
   labelBalance.textContent = `₹${acc.balance} `;
 };
-calcDisplayBalance(account1);
+// calcDisplayBalance(account1);
 
 //using forEach() and Map() methods
 
@@ -127,6 +127,15 @@ const calcDisplaySummary = function (acc) {
 //Event Handeler:
 let currentAccount;
 
+const updateUi = function (acc) {
+  //Display Balance
+  calcDisplayBalance(acc);
+  //Display Summary
+  calcDisplaySummary(acc);
+  //Display movements
+  diplayMovements(acc.movements);
+};
+
 //Event Handelers:
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault(); //this will prevent this form from submitting
@@ -146,23 +155,73 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginPin.value = inputLoginUsername.value = '';
     inputLoginPin.blur();
 
-    //Display Balance
-    calcDisplayBalance(currentAccount);
-    //Display Summary
-    calcDisplaySummary(currentAccount);
-    //Display movements
-    diplayMovements(currentAccount.movements);
+    //Update UI
+    updateUi(currentAccount);
   }
 });
 
+//Implementing Transfers:
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
   const amount = Number(inputTransferAmount.value);
   const reciverAcc = accounts.find(
-    acc => (acc.userName = inputTransferTo.value)
+    acc => acc.userName === inputTransferTo.value
   );
+  console.log(reciverAcc);
+  inputTransferAmount.value = inputTransferTo.value = '';
+
+  if (
+    amount > 0 &&
+    currentAccount.balance >= amount &&
+    reciverAcc &&
+    reciverAcc?.userName !== currentAccount.userName
+  ) {
+    console.log('Transfer Valid !');
+
+    ///Transfer:
+    currentAccount.movements.push(-amount);
+    reciverAcc.movements.push(amount);
+
+    //Updating UI:
+    updateUi(currentAccount);
+  }
 });
 
+//Closing Account: using findIndex method:
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  console.log(`Delete`);
+  if (
+    currentAccount.userName === inputCloseUsername.value &&
+    currentAccount.pin === Number(inputClosePin.value)
+  ) {
+    const myAccIndex = accounts.findIndex(
+      acc => acc.userName === currentAccount.userName
+    );
+    accounts.splice(myAccIndex, 1);
+    containerApp.style.opacity = 0;
+    inputClosePin.blur();
+  }
+  inputCloseUsername.value = inputClosePin.value = '';
+});
+
+//Requesting Loan: using some() nethod:
+// condition for loan approval is that there must be one transaction
+// greater than or equal to 10% of the loan amount requested
+
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount / 10)) {
+    currentAccount.movements.push(amount);
+    updateUi(currentAccount);
+  }
+  inputLoanAmount.value = '';
+  inputLoanAmount.blur();
+});
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
