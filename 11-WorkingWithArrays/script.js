@@ -61,10 +61,12 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const diplayMovements = function (movements) {
+const diplayMovements = function (movements, sort = false) {
   // console.log(containerMovements.innerHTML);
   containerMovements.innerHTML = '';
-  movements.forEach(function (mov, i) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -222,6 +224,13 @@ btnLoan.addEventListener('click', function (e) {
   inputLoanAmount.value = '';
   inputLoanAmount.blur();
 });
+
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  diplayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -330,7 +339,7 @@ Hints: Use tools from all lectures in this section so far �
 // checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 
 // //*My own practice:
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // console.log(movements);
 // const newMsvi = movements.map(function (movement, i) {
 //   if (movement > 0) {
@@ -461,3 +470,27 @@ Test data:
 // };
 
 // calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+
+//Sorting Array:
+
+//Strings:
+const owners = ['Jonas', 'Zach', 'Adaam', 'Martha'];
+console.log(owners.sort());
+
+//Numbers: converts everything to strings and then do the sorting itself:
+console.log(movements);
+
+//ascending:
+console.log(movements.sort((a, b) => a - b));
+
+//descending:
+console.log(movements.sort((a, b) => b - a));
+
+console.log(movements);
+
+//USing Array From
+const rand = Array.from({ length: 100 }, (_, i) =>
+  Math.trunc(Math.random() * 6 + 1)
+);
+
+console.log(rand);
