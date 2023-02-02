@@ -494,3 +494,57 @@ const rand = Array.from({ length: 100 }, (_, i) =>
 );
 
 console.log(rand);
+
+//Practicing all the Array Methods:
+
+//1.
+const totalDepositSum = accounts
+  .flatMap(acc => acc.movements)
+  .filter(val => val > 0)
+  .reduce((sum, cur) => sum + cur, 0);
+console.log(totalDepositSum);
+
+//2.
+const numDeposits1000 = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 1000).length;
+console.log(numDeposits1000);
+
+//*another method:
+const numDeposits1000new = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((count, curr) => (curr > 1000 ? ++count : count), 0);
+console.log(numDeposits1000new);
+
+//3.
+const { deposits: dip, withdrawal: wit } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, curr) => {
+      curr > 0 ? (sums.deposits += curr) : (sums.withdrawal += curr);
+      return sums;
+    },
+
+    {
+      deposits: 0,
+      withdrawal: 0,
+    }
+  );
+
+//4.
+const convertTitleCase = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+  const exception = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word => (exception.includes(word) ? word : capitalize(word)))
+    .join(' ');
+
+  return capitalize(titleCase);
+};
+console.log(dip, wit);
+// console.log(sums);
+console.log(convertTitleCase('This is An amazing title'));
