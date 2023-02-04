@@ -325,3 +325,40 @@ console.log(Math.round(32.04));
 console.log((2.7).toFixed(0));
 console.log((2.7).toFixed(3)); //Returns a string;
 console.log(+(2.3456).toFixed(1));
+
+//The remainder Operator:
+console.log(5 % 2);
+
+const isEven = n => n % 2 === 0;
+
+//Numeric Separator:
+
+const diameter = 287_460_000_000;
+console.log(diameter);
+
+const priceInCents = 345_59;
+console.log(priceInCents);
+
+//Exception:
+console.log(Number('250_89')); //this will not work
+
+//Woring With bigInt:
+
+console.log(Number.MAX_VALUE);
+console.log(Number.MAX_SAFE_INTEGER); //9007199254740991
+
+console.log(123456789987654321123456789n);
+console.log(typeof 123456789987654321123456789n);
+
+//Exception you cannot do mathematical calc combing and normal number with bigInt;
+let huge = 123456789987654321123456789n;
+// console.log(huge * 2); // Uncaught TypeError: Cannot mix BigInt and other types, use explicit conversions
+
+console.log(20n > 15); //true
+console.log(20n === 20); //false coz of strict equality
+console.log(20n == 20); // true coz of type coersion
+
+console.log(huge + ' is a really big number!😱');
+
+//Division:
+console.log(13n / 3n); //4n always return integer value
