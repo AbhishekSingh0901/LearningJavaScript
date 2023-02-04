@@ -96,7 +96,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -113,12 +113,12 @@ const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${+Math.abs(out).toFixed(2)}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -128,7 +128,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -185,6 +185,7 @@ btnLogin.addEventListener('click', function (e) {
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
   const amount = +inputTransferAmount.value;
+
   const receiverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
   );
@@ -208,7 +209,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = +inputLoanAmount.value;
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -276,3 +277,51 @@ console.log(Number.isNaN(+'ff'));
 
 //Checking if value is a number
 console.log(Number.isFinite(20 / 1));
+
+//Math and Rounding:
+
+console.log(Math.sqrt(25));
+console.log(Math.max(5, 19, '23', 22)); //This also does type coersion;
+console.log(Math.min(5, 19, '23', 22));
+
+//area of a circle of radius of 10px;
+console.log(Math.PI * Number.parseFloat('10px') ** 2);
+
+// console.log(Math.trunc(Math.random() * 6) + 1);
+
+const randomInt = function (min, max) {
+  const output = Math.floor(Math.random() * (max - min) + min);
+  return output;
+};
+
+console.log(randomInt(4, 10));
+
+//Rounding Integers:
+console.log(Math.trunc(-23.68));
+console.log(Math.trunc(-56.01));
+console.log(Math.trunc(32.89));
+console.log(Math.trunc(32.04));
+
+console.log('*****************************************');
+console.log(Math.floor(-56.01));
+console.log(Math.floor(32.89));
+console.log(Math.floor(32.04));
+console.log(Math.floor(-23.68));
+
+console.log('*****************************************');
+console.log(Math.ceil(-23.68));
+console.log(Math.ceil(-56.01));
+console.log(Math.ceil(32.89));
+console.log(Math.ceil(32.04));
+
+console.log('*****************************************');
+console.log(Math.round(-23.68));
+console.log(Math.round(-56.01));
+console.log(Math.round(32.89));
+console.log(Math.round(32.04));
+
+//Rounding Decimals;
+
+console.log((2.7).toFixed(0));
+console.log((2.7).toFixed(3)); //Returns a string;
+console.log(+(2.3456).toFixed(1));
