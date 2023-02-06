@@ -178,13 +178,41 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+const startLogoutTimer = function () {
+  //setting time to 5 minutes
+  let time = 300;
+
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+    //In each call, print the reaining time
+    labelTimer.textContent = `${min}:${sec}`;
+
+    // when 0 seconds, stop timer and logout;
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = `Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+
+    //Decrease 1 sec
+    time--;
+  };
+  //call the timer every second
+  tick();
+  const timer = setInterval(tick, 1000);
+
+  return timer;
+};
+
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
+let currentAccount, timer;
 
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+//Fake always logged in
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 // //dat/month/year:
 
@@ -231,6 +259,9 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+    //starting timer
+    if (timer) clearInterval(timer);
+    timer = startLogoutTimer();
     // Update UI
     updateUI(currentAccount);
   }
@@ -260,6 +291,10 @@ btnTransfer.addEventListener('click', function (e) {
     receiverAcc.movementsDates.push(new Date().toISOString());
     // Update UI
     updateUI(currentAccount);
+
+    //Reseting the timer:
+    clearInterval(timer);
+    timer = startLogoutTimer();
   }
 });
 
@@ -278,6 +313,10 @@ btnLoan.addEventListener('click', function (e) {
 
       // Update UI
       updateUI(currentAccount);
+
+      //Reseting the timer:
+      clearInterval(timer);
+      timer = startLogoutTimer();
     }, 2500);
   }
   inputLoanAmount.value = '';
@@ -454,48 +493,48 @@ console.log(13n / 3n); //4n always return integer value
 // future.setFullYear(2040);
 // console.log(future);
 
-//Operations With Dates:
+// //Operations With Dates:
 
-const future = new Date(2010, 10, 19, 15, 23);
-console.log(+future);
+// const future = new Date(2010, 10, 19, 15, 23);
+// console.log(+future);
 
 // const day1 = calcDaysPassed(new Date(2037, 3, 4), new Date(2037, 3, 19));
 // console.log(day1);
 
 //InterNationalising Numbers:
-const num = 3884764.23;
+// const num = 3884764.23;
 
-const options = {
-  style: 'unit', //percent, currency
-  unit: 'kilometer-per-hour',
-};
-console.log('US:', new Intl.NumberFormat('en-US', options).format(num));
-console.log('IND:', new Intl.NumberFormat('hi-IN', options).format(num));
-console.log('GE', new Intl.NumberFormat('de-DE', options).format(num));
-console.log(
-  navigator.language,
-  new Intl.NumberFormat(navigator.language, options).format(num)
-);
+// const options = {
+//   style: 'unit', //percent, currency
+//   unit: 'kilometer-per-hour',
+// };
+// console.log('US:', new Intl.NumberFormat('en-US', options).format(num));
+// console.log('IND:', new Intl.NumberFormat('hi-IN', options).format(num));
+// console.log('GE', new Intl.NumberFormat('de-DE', options).format(num));
+// console.log(
+//   navigator.language,
+//   new Intl.NumberFormat(navigator.language, options).format(num)
+// );
 
 //Timers Async:
 
-//setTimeour
-const ingredients = ['olives', 'mushrooms'];
-const pizaaTimer = setTimeout(
-  (topping1, topping2) => {
-    console.log(`Here is your pizza🍕 with ${topping1} and, ${topping2}`);
-  },
-  3000,
-  ...ingredients
-);
+//setTimeout
+// const ingredients = ['olives', 'mushrooms'];
+// const pizaaTimer = setTimeout(
+//   (topping1, topping2) => {
+//     console.log(`Here is your pizza🍕 with ${topping1} and, ${topping2}`);
+//   },
+//   3000,
+//   ...ingredients
+// );
 
-console.log('Waiting...⏱️');
+// console.log('Waiting...⏱️');
 
-if (ingredients.includes('spinach')) clearTimeout(pizaaTimer);
+// if (ingredients.includes('spinach')) clearTimeout(pizaaTimer);
 
-//setInterval:
-setInterval(function () {
-  const now = new Date();
-  console.log(now);
-}, 1000);
-clearInterval();
+// //setInterval:
+// setInterval(function () {
+//   const now = new Date();
+//   console.log(now);
+// }, 1000);
+// clearInterval();
