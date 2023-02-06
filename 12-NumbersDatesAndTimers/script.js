@@ -459,3 +459,18 @@ console.log(+future);
 
 // const day1 = calcDaysPassed(new Date(2037, 3, 4), new Date(2037, 3, 19));
 // console.log(day1);
+
+//InterNationalising Numbers:
+const num = 3884764.23;
+
+const options = {
+  style: 'unit', //percent, currency
+  unit: 'kilometer-per-hour',
+};
+console.log('US:', new Intl.NumberFormat('en-US', options).format(num));
+console.log('IND:', new Intl.NumberFormat('hi-IN', options).format(num));
+console.log('GE', new Intl.NumberFormat('de-DE', options).format(num));
+console.log(
+  navigator.language,
+  new Intl.NumberFormat(navigator.language, options).format(num)
+);
