@@ -33,3 +33,46 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+// 1) Selecting,reating, and Deleting Elements:
+
+//! selecting
+
+console.log(document.documentElement);
+console.log(document.head);
+console.log(document.body);
+
+const header = document.querySelector('.header');
+const allSections = document.querySelectorAll('.section'); //Returns a node list.
+console.log(allSections);
+
+document.getElementById('section--1');
+
+const allButtons = document.getElementsByTagName('button'); //Returns an Html collection(live collection),
+console.log(allButtons); //i.e. if dom changes it gets updated automatically
+
+console.log(document.getElementsByClassName('btn')); //Also return Html Collection
+
+//! Creating
+
+//.inserAdjacentHtml
+
+const message = document.createElement('div');
+message.classList.add('cookie-message');
+message.innerHTML = `We use cookies for improved functionality and antalytics.
+<button class = "btn btn--close-cookie">Got it</button>`;
+header.prepend(message); //fisrt child element inside header;
+// header.append(message); // last child element inside header;
+
+// header.append(message.cloneNode(true)); //*cloning the messsage element at both places;
+
+header.before(message);
+// header.after(message);
+
+//! Deleting
+document
+  .querySelector('.btn--close-cookie')
+  .addEventListener('click', function () {
+    message.remove(); //Deletes the element;
+    // message.parentElement.removeChild(message) //*older way of deleting;
+  });
