@@ -81,7 +81,7 @@ document
 
 //* styles: these styles are added as inline styles
 message.style.backgroundColor = '#37383d';
-message.style.width = '120%';
+// message.style.width = '120%';
 message.style.margin = '10px';
 
 //to get all the style: even though we did not apply it
@@ -127,3 +127,37 @@ console.log(logo.dataset.versionNumber);
 // logo.classList.remove();
 // logo.classList.toggle();
 // logo.classList.contains();
+
+//*Implementing the Smooth Scrolling:
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+  // console.log(e.target.getBoundingClientRect());
+  // console.log('current scroll (X/Y)', window.pageXOffset, pageYOffset);
+
+  // console.log(
+  //   'height/Width of viewport',
+  //   document.documentElement.clientHeight,
+  //   document.documentElement.clientWidth
+  // );
+
+  //*Scrolling
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffset,
+  //   s1coords.top + window.pageYOffset
+  // );
+
+  //making the scolling on click smooth
+
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  //More MordernWay:
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
