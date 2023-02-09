@@ -223,7 +223,7 @@ h4 {
   height: 100%;
   width: 100%;
   z-index: -1;
-  opacity: 0.7;
+  opacity: 0.8;
   transform: scale(1.07, 1.05) skewX(-15deg);
   background-image: var(--gradient-primary);
 }
