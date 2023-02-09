@@ -161,3 +161,24 @@ btnScrollTo.addEventListener('click', function (e) {
   //More MordernWay:
   section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+//*Types of Events and Event Handlers
+const h1 = document.querySelector('h1');
+
+//addevent listener  1. allows us to add multiple event listeners to same event
+//2. even more importantly, we can actually remove an event handler in case we don't need it anymore
+const alertH1 = function (e) {
+  alert(`Great you are reading a heading`);
+  // h1.removeEventListener('mouseenter', alertH1);
+};
+
+h1.addEventListener('mouseenter', alertH1);
+setTimeout(function () {
+  h1.removeEventListener('mouseenter', alertH1);
+  console.log('alert removed');
+}, 1000);
+
+//older method
+// h1.onmouseenter = function (e) {
+//   alert(`Great you are reading a heading`);
+// };
