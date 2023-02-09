@@ -175,10 +175,36 @@ const alertH1 = function (e) {
 h1.addEventListener('mouseenter', alertH1);
 setTimeout(function () {
   h1.removeEventListener('mouseenter', alertH1);
-  console.log('alert removed');
 }, 1000);
 
 //older method
 // h1.onmouseenter = function (e) {
 //   alert(`Great you are reading a heading`);
 // };
+
+//*Event Propogation:
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+const radomColor = () =>
+  `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+console.log(radomColor());
+
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  this.style.backgroundColor = radomColor();
+  console.log('Link', e.target, e.currentTarget);
+
+  //we can also stop the propagation:
+  // e.stopPropagation();
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  this.style.backgroundColor = radomColor();
+  console.log('Container', e.target, e.currentTarget);
+});
+
+document.querySelector('.nav').addEventListener('click', function (e) {
+  this.style.backgroundColor = radomColor();
+  console.log('Nav', e.target, e.currentTarget);
+});
