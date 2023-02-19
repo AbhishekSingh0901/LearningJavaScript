@@ -6,8 +6,11 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const nav = document.querySelector('.nav');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
 
-///////////////////////////////////////
 // Modal window
 
 // console.log(btnsOpenModal);
@@ -36,7 +39,6 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-//////////////////////////////////////////////////////////////////
 //*Event Delegation
 
 //Page Navigation
@@ -62,8 +64,6 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
-
-//////////////////////////////////////////////////////////////////
 
 //*Implementing the Smooth Scrolling:
 
@@ -97,6 +97,59 @@ btnScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
+//* Building tabbed Components:
+
+tabContainer.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const clicked = e.target.closest('.operations__tab');
+  // console.log(clicked);
+
+  //Guard Clause
+  if (!clicked) return;
+
+  //active tab
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+  clicked.classList.add('operations__tab--active');
+
+  //activate-content area
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
+//*menu fade animation:
+
+const handleHover = function (e) {
+  e.preventDefault();
+
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+nav.addEventListener('mouseout', handleHover.bind(1));
+
+//*sticky navigation
+
+//window scroll should be avoided usually
+const initialCorrds = section1.getBoundingClientRect();
+console.log(initialCorrds);
+
+window.addEventListener('scroll', function (e) {
+  if (window.scrollY > initialCorrds.top) {
+    nav.classList.add('sticky');
+  } else nav.classList.remove('sticky');
+});
 //////////////////////////////////////////////////////////////////
 // 1) Selecting,reating, and Deleting Elements:
 
@@ -237,4 +290,29 @@ btnScrollTo.addEventListener('click', function (e) {
 // document.querySelector('.nav').addEventListener('click', function (e) {
 //   this.style.backgroundColor = radomColor();
 //   console.log('Nav', e.target, e.currentTarget);
+// });
+
+// //* Dom traversing:
+// const h1 = document.querySelector('h1');
+
+// //Going downwards: child
+// console.log(h1.querySelectorAll('.highlight'));
+// console.log(h1.childNodes);
+// console.log(h1.children);
+// h1.firstElementChild.style.color = 'white';
+// h1.lastElementChild.style.color = 'white';
+
+// //Going upwards: parents
+// console.log(h1.parentNode);
+// // h1.closest('h1').style.background = 'var(--gradient-secondary)';
+
+// //Going sideways
+// console.log(h1.previousElementSibling);
+// console.log(h1.nextElementSibling);
+
+// console.log(h1.parentElement.children);
+// [...h1.parentElement.children].forEach(function (el) {
+//   if (el !== h1) {
+//     el.style.transform = 'scale(0.9)';
+//   }
 // });
