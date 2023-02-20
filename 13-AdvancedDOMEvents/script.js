@@ -11,7 +11,11 @@ const nav = document.querySelector('.nav');
 const tabs = document.querySelectorAll('.operations__tab');
 const tabContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
-
+const slides = document.querySelectorAll('.slide');
+const slider = document.querySelector('.slider');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+const dotConatiner = document.querySelector('.dots');
 // Modal window
 
 // console.log(btnsOpenModal);
@@ -200,7 +204,7 @@ const sectionOberver = new IntersectionObserver(revealSection, {
 });
 allSections.forEach(function (section) {
   sectionOberver.observe(section);
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
 });
 
 //* Lazy Loading images
@@ -228,6 +232,89 @@ const imgObesrver = new IntersectionObserver(loadImg, {
 const imgTargets = document.querySelectorAll('img[data-src]');
 imgTargets.forEach(img => imgObesrver.observe(img));
 
+//* Implementing Slider:
+
+// slider.style.transform = 'scale(0.5)';
+// slider.style.overflow = 'visible';
+const sliderFunction = function () {
+  let currentSlide = 0;
+  const maxSlides = slides.length;
+
+  //*impleting the dots:
+  const createDots = function () {
+    slides.forEach((_, i) => {
+      dotConatiner.insertAdjacentHTML(
+        'beforeend',
+        `<button class='dots__dot' data-slide='${i}'></button>`
+      );
+    });
+  };
+
+  const activateDot = function (slide) {
+    document.querySelectorAll('.dots__dot').forEach(dot => {
+      dot.classList.remove('dots__dot--active');
+    });
+
+    document
+      .querySelector(`.dots__dot[data-slide ='${slide}']`)
+      .classList.add('dots__dot--active');
+  };
+
+  const goToSlide = function (slide) {
+    slides.forEach((s, i) => {
+      s.style.transform = `translateX(${100 * (i - slide)}%)`;
+    });
+  };
+
+  //Next SLide
+  const nextSlide = function () {
+    if (currentSlide === maxSlides - 1) {
+      currentSlide = 0;
+    } else currentSlide++;
+
+    activateDot(currentSlide);
+    goToSlide(currentSlide);
+  };
+
+  //PrevSlide
+  const prevSlide = function () {
+    if (currentSlide === 0) {
+      currentSlide = maxSlides - 1;
+    } else currentSlide--;
+
+    activateDot(currentSlide);
+    goToSlide(currentSlide);
+  };
+  const init = function () {
+    createDots();
+    goToSlide(0);
+    activateDot(0);
+  };
+  init();
+
+  //event handlers
+  document.addEventListener('keydown', function (e) {
+    // console.log(e);
+    if (e.key === 'ArrowRight') {
+      nextSlide();
+    } else if (e.key === 'ArrowLeft') [prevSlide()];
+  });
+
+  btnRight.addEventListener('click', nextSlide);
+  btnLeft.addEventListener('click', prevSlide);
+
+  dotConatiner.addEventListener('click', function (e) {
+    if (e.target.classList.contains('dots__dot')) {
+      // console.log(e);
+
+      const { slide } = e.target.dataset;
+      goToSlide(slide);
+      activateDot(slide);
+    }
+  });
+};
+
+sliderFunction();
 //////////////////////////////////////////////////////////////////
 // 1) Selecting,reating, and Deleting Elements:
 
