@@ -188,7 +188,7 @@ const allSections = document.querySelectorAll('.section');
 
 const revealSection = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
   if (!entry.isIntersecting) return;
   entry.target.classList.remove('section--hidden');
   observer.unobserve(entry.target);
@@ -202,6 +202,32 @@ allSections.forEach(function (section) {
   sectionOberver.observe(section);
   section.classList.add('section--hidden');
 });
+
+//* Lazy Loading images
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+  // console.log(entry);
+
+  if (!entry.isIntersecting) return;
+
+  //replace src with data-src
+  entry.target.src = entry.target.dataset.src;
+
+  //this is done to remove the blurry filter onlyn when the better quality image is loaded
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+};
+
+const imgObesrver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  rootMargin: '200px',
+});
+
+const imgTargets = document.querySelectorAll('img[data-src]');
+imgTargets.forEach(img => imgObesrver.observe(img));
+
 //////////////////////////////////////////////////////////////////
 // 1) Selecting,reating, and Deleting Elements:
 
