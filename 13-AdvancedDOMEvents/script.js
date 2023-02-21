@@ -6,6 +6,7 @@ const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
+const allSections = document.querySelectorAll('.section');
 const section1 = document.querySelector('#section--1');
 const nav = document.querySelector('.nav');
 const tabs = document.querySelectorAll('.operations__tab');
@@ -188,14 +189,14 @@ const headerobserver = new IntersectionObserver(stickyNav, {
 headerobserver.observe(header);
 
 //* Reveal Sections
-const allSections = document.querySelectorAll('.section');
 
 const revealSection = function (entries, observer) {
   const [entry] = entries;
   // console.log(entry);
-  if (!entry.isIntersecting) return;
-  entry.target.classList.remove('section--hidden');
-  observer.unobserve(entry.target);
+  if (entry.isIntersecting) {
+    entry.target.classList.remove('section--hidden');
+    observer.unobserve(entry.target);
+  }
 };
 
 const sectionOberver = new IntersectionObserver(revealSection, {
@@ -204,7 +205,7 @@ const sectionOberver = new IntersectionObserver(revealSection, {
 });
 allSections.forEach(function (section) {
   sectionOberver.observe(section);
-  // section.classList.add('section--hidden');
+  section.classList.add('section--hidden');
 });
 
 //* Lazy Loading images
@@ -480,4 +481,18 @@ sliderFunction();
 //   if (el !== h1) {
 //     el.style.transform = 'scale(0.9)';
 //   }
+// });
+
+// document.addEventListener('DOMContentLoaded', function (e) {
+//   console.log('HTML parsed and DOM tree built', e);
+// });
+
+// window.addEventListener('load', function (e) {
+//   console.log('page fully loaded', e);
+// });
+
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault();
+//   console.log(e);
+//   e.returnValue = '';
 // });
