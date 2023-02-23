@@ -63,9 +63,51 @@ Array.prototype.unique = function () {
 
 // console.log(arr.unique());
 
-const h1 = document.querySelector('h1');
+// const h1 = document.querySelector('h1');
 // console.dir(h1);
 
+//////////////////////////////////////////////////////////////////////////////////
+
+//ES6 Classes
+
+class PersonCL {
+  constructor(name, birthyear) {
+    this.name = name;
+    this.birthyear = birthyear;
+  }
+
+  calcAge() {
+    console.log(`${this.firstName}'s age is ${2023 - this.birthyear}`);
+  }
+}
+
+const JohnDoe = new PersonCL('John Doe', 1986);
+
+// JohnDoe.calcAge();
+
+PersonCL.prototype.greet = function () {
+  console.log(`hey ${this.name}`);
+};
+
+JohnDoe.greet();
+
+//Getters and Setter:
+const account = {
+  owner: 'Jonas',
+  movements: [100, 200, 456, 842],
+
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+
+console.log(account.latest);
+console.log((account.latest = 500));
+console.log(account.movements);
 ////////////////////////////////////////////////////////////////////////////////////
 
 // Coding Challenge #1
@@ -86,22 +128,24 @@ const h1 = document.querySelector('h1');
 // § Data car 1: 'BMW' going at 120 km/h
 // § Data car 2: 'Mercedes' going at 95 km/h
 
-const Car = function (make, speed) {
-  this.make = make;
-  this.speed = speed;
-};
-Car.prototype.accelerate = function () {
-  console.log(`speed: ${(this.speed += 10)}km/h`);
-};
+//Solution:
 
-Car.prototype.brake = function () {
-  console.log(`speed: ${(this.speed -= 5)}km/h`);
-};
+// const Car = function (make, speed) {
+//   this.make = make;
+//   this.speed = speed;
+// };
+// Car.prototype.accelerate = function () {
+//   console.log(`speed: ${(this.speed += 10)}km/h`);
+// };
 
-const car1 = new Car('BMW', 120);
-car1.accelerate();
-car1.accelerate();
-car1.brake();
-car1.accelerate();
-car1.brake();
-car1.brake();
+// Car.prototype.brake = function () {
+//   console.log(`speed: ${(this.speed -= 5)}km/h`);
+// };
+
+// const car1 = new Car('BMW', 120);
+// car1.accelerate();
+// car1.accelerate();
+// car1.brake();
+// car1.accelerate();
+// car1.brake();
+// car1.brake();
