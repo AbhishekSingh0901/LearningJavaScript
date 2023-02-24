@@ -313,15 +313,19 @@ class Account {
   }
 
   //Public Interfaces
-  getMovements() {
-    this.#movements;
+  get movements() {
+    console.log(this.#movements);
   }
 
+  get balance() {
+    console.log(this.#balance);
+  }
   depsoit(mov) {
     if (mov > 0) {
       console.log(`${mov}, deposited in account`);
       this.#balance += mov;
       this.#movements.push(mov);
+      return this;
     }
   }
 
@@ -331,18 +335,20 @@ class Account {
       this.#balance -= mov;
       this.#movements.push(-mov);
     }
+    return this;
   }
 
-  _approveLoan(val) {
-    true;
+  _approveLoan() {
+    return true;
   }
 
   requestLoan(val) {
-    const allow = this._approveLoan(val);
+    const allow = this._approveLoan();
     if (allow) {
       this.depsoit(val);
       console.log('Loan approved');
     }
+    return this;
   }
 
   //Private Method Are not yet implimented
@@ -358,9 +364,14 @@ acc1.depsoit(490);
 acc1.depsoit(78);
 acc1.withdraw(238);
 acc1.requestLoan(10000);
+
+//Chaining:
+acc1.depsoit(300).depsoit(500).withdraw(35).requestLoan(1000).withdraw(2000)
+  .balance;
+
 ////////////////////////////////////////////////////////////////////////////////////
 
-// Coding Challenge #1
+//* Coding Challenge #1
 
 // Your tasks:
 
@@ -400,7 +411,7 @@ acc1.requestLoan(10000);
 // car1.brake();
 // car1.brake();
 
-//Coding Challenge 2:
+//*Coding Challenge 2:
 
 // Your tasks:
 
@@ -448,7 +459,7 @@ acc1.requestLoan(10000);
 // ford.speedUs = 80;
 // console.log(ford.speed);
 
-//Coding Challenge #3
+//*Coding Challenge #3
 
 // Your tasks:
 // 1. Use a constructor function to implement an Electric Car (called 'EV') as a child
@@ -505,3 +516,66 @@ acc1.requestLoan(10000);
 // console.log(eTron);
 // eTron.accelarate();
 // eTron.brake();
+
+//* Coding Challenge #4
+
+// Your tasks:
+// 1. Re-create Challenge #3, but this time using ES6 classes: create an 'EVCl'
+// child class of the 'CarCl' class
+
+// 2. Make the 'charge' property private
+
+// 3. Implement the ability to chain the 'accelerate' and 'chargeBattery'
+// methods of this class, and also update the 'brake' method in the 'CarCl'
+// class. Then experiment with chaining!
+
+// Test data:
+// § Data car 1: 'Rivian' going at 120 km/h, with a charge of 23%
+
+class Car {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    console.log(`speed: ${(this.speed += 10)}km/h`);
+  }
+
+  brake() {
+    console.log(`speed: ${(this.speed -= 5)}km/h`);
+  }
+
+  get speedUs() {
+    return this.speed / 1.6;
+  }
+
+  set speedUs(speed) {
+    this.speed = speed * 1.6;
+  }
+}
+
+class CarEv extends Car {
+  #charge;
+  constructor(make, speed, charge) {
+    super(this.make, this.speed);
+    this.#charge = charge;
+  }
+
+  chargeBattery(chargeTo) {
+    this.#charge = chargeTo;
+  }
+  accelerate() {
+    this.#charge--;
+    this.speed += 20;
+    console.log(
+      `${this.make} is going at ${this.speed} km/h, with a charge of ${this.charge}%;`
+    );
+    return this;
+  }
+
+  brake() {
+    console.log(`speed: ${(this.speed -= 5)}km/h`);
+    return this;
+  }
+}
