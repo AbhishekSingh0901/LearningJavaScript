@@ -296,6 +296,68 @@
 // jay.introduce();
 // jay.calcAge();
 
+//*Another Example:
+class Account {
+  //Public property
+  locale = navigator.language;
+
+  //Private Property
+  #movements = [];
+  #balance = 0;
+  #pin;
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.#pin = pin;
+    console.log(`thanks for apening an account`);
+  }
+
+  //Public Interfaces
+  getMovements() {
+    this.#movements;
+  }
+
+  depsoit(mov) {
+    if (mov > 0) {
+      console.log(`${mov}, deposited in account`);
+      this.#balance += mov;
+      this.#movements.push(mov);
+    }
+  }
+
+  withdraw(mov) {
+    if (mov > 0) {
+      console.log(`${mov}, withdrawn from account`);
+      this.#balance -= mov;
+      this.#movements.push(-mov);
+    }
+  }
+
+  _approveLoan(val) {
+    true;
+  }
+
+  requestLoan(val) {
+    const allow = this._approveLoan(val);
+    if (allow) {
+      this.depsoit(val);
+      console.log('Loan approved');
+    }
+  }
+
+  //Private Method Are not yet implimented
+  // #approveLoan(val) {
+  //   true;
+  // }
+}
+
+const acc1 = new Account('Jonas', 'Rup', 1111);
+console.log(acc1);
+acc1.depsoit(1000);
+acc1.depsoit(490);
+acc1.depsoit(78);
+acc1.withdraw(238);
+acc1.requestLoan(10000);
 ////////////////////////////////////////////////////////////////////////////////////
 
 // Coding Challenge #1
