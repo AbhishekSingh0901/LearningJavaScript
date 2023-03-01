@@ -52,50 +52,72 @@ const renderCountry = function (data, className = '') {
   countriesContainer.style.opacity = 1;
 };
 
-const getCountryDataAndNeighbour = function (country) {
-  const request = new XMLHttpRequest();
-  request.open('GET', `https://restcountries.com/v2/name/${country}`);
-  request.send();
+// const getCountryDataAndNeighbour = function (country) {
+//   const request = new XMLHttpRequest();
+//   request.open('GET', `https://restcountries.com/v2/name/${country}`);
+//   request.send();
 
-  request.addEventListener('load', function () {
-    // console.log(this.responseText);
-    const [data] = JSON.parse(this.responseText);
-    console.log(data);
-    // console.log(data.flags.svg);
-    renderCountry(data);
+//   request.addEventListener('load', function () {
+//     // console.log(this.responseText);
+//     const [data] = JSON.parse(this.responseText);
+//     console.log(data);
+//     // console.log(data.flags.svg);
+//     renderCountry(data);
 
-    //Get Neighbour country:
+//     //Get Neighbour country:
 
-    const neighbour = data.borders[0];
-    if (!neighbour) return;
-    const nieghbourRequest = new XMLHttpRequest();
-    nieghbourRequest.open(
-      'GET',
-      `https://restcountries.com/v2/alpha/${neighbour}`
-    );
-    nieghbourRequest.send();
-    nieghbourRequest.addEventListener('load', function () {
-      const datanighobur = JSON.parse(this.responseText);
-      renderCountry(datanighobur, 'neighbour');
-    });
-  });
+//     const neighbour = data.borders[0];
+//     if (!neighbour) return;
+//     const nieghbourRequest = new XMLHttpRequest();
+//     nieghbourRequest.open(
+//       'GET',
+//       `https://restcountries.com/v2/alpha/${neighbour}`
+//     );
+//     nieghbourRequest.send();
+//     nieghbourRequest.addEventListener('load', function () {
+//       const datanighobur = JSON.parse(this.responseText);
+//       renderCountry(datanighobur, 'neighbour');
+//     });
+//   });
+// };
+
+// getCountryDataAndNeighbour('usa');
+
+// //Another simpler Example:
+// setTimeout(() => {
+//   console.log('1 Sec passed');
+//   setTimeout(() => {
+//     console.log('1 Sec passed');
+//     setTimeout(() => {
+//       console.log('1 Sec passed');
+//       setTimeout(() => {
+//         console.log('1 Sec passed');
+//         setTimeout(() => {
+//           console.log('1 Sec passed');
+//         }, 1000);
+//       }, 1000);
+//     }, 1000);
+//   }, 1000);
+// }, 1000);
+
+// const request = new XMLHttpRequest();
+//   request.open('GET', `https://restcountries.com/v2/name/${country}`);
+//   request.send();
+
+const request = fetch(`https://restcountries.com/v2/name/portugal`);
+console.log(request);
+
+const getCountryData = function (country) {
+  fetch(`https://restcountries.com/v2/name/${country}`)
+    .then(response => response.json())
+    .then(data => {
+      renderCountry(data[0]);
+      const neighbour = data[0].borders[0];
+      if (!neighbour) return;
+      return fetch(`https://restcountries.com/v2/alpha/${neighbour}`);
+    })
+    .then(response => response.json())
+    .then(data => renderCountry(data, 'neighbour'));
 };
 
-getCountryDataAndNeighbour('usa');
-
-//Another simpler Example:
-setTimeout(() => {
-  console.log('1 Sec passed');
-  setTimeout(() => {
-    console.log('1 Sec passed');
-    setTimeout(() => {
-      console.log('1 Sec passed');
-      setTimeout(() => {
-        console.log('1 Sec passed');
-        setTimeout(() => {
-          console.log('1 Sec passed');
-        }, 1000);
-      }, 1000);
-    }, 1000);
-  }, 1000);
-}, 1000);
+getCountryData('usa');
