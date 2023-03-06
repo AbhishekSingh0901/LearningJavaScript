@@ -49,7 +49,7 @@ const renderCountry = function (data, className = '') {
   </article>`;
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  // countriesContainer.style.opacity = 1;
+  countriesContainer.style.opacity = 1;
 };
 
 const renderError = function (msg) {
@@ -109,8 +109,8 @@ const renderError = function (msg) {
 //   request.open('GET', `https://restcountries.com/v2/name/${country}`);
 //   request.send();
 
-const request = fetch(`https://restcountries.com/v2/name/portugal`);
-console.log(request);
+// const request = fetch(`https://restcountries.com/v2/name/portugal`);
+// console.log(request);
 
 const getJSON = function (url, errorMSG = 'Something went wrong') {
   return fetch(url).then(response => {
@@ -173,11 +173,6 @@ const getCountryData = function (country) {
     });
 };
 
-btn.addEventListener('click', function () {
-  getCountryData('australia');
-  // getCountryData('britain');
-});
-
 /**
  * Coding Challenge #1
 In this challenge you will build a function 'whereAmI' which renders a country 
@@ -220,3 +215,38 @@ Test data:
 GOOD LUCK �
 
  */
+
+const whereAmI = function (lat, lng) {
+  fetch(
+    `https://geocode.xyz/${lat},${lng}?geoit=json&auth=136567894980043431541x66720`
+  )
+    .then(res => {
+      if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
+      return res.json();
+    })
+    .then(data => {
+      console.log(data);
+      console.log(`you are in ${data.city}, ${data.country}`);
+
+      return fetch(
+        `https://restcountries.com/v2/name/${data.country.toLowerCase()}`
+      );
+    })
+    .then(response => {
+      if (!response.ok) throw new Error(`Country not found ${response.status}`);
+
+      return response.json();
+    })
+    .then(data => renderCountry(data[0]))
+    .catch(error => console.log(error.message));
+};
+// const currLocation = navigator.geolocation.getCurrentPosition();
+// console.log(currLocation);
+
+// whereAmI(19.037, 72.873);
+// whereAmI(-33.933, 18.474);
+btn.addEventListener('click', function () {
+  // getCountryData('australia');
+  // getCountryData('britain');
+  whereAmI('52.508', '13.381');
+});
