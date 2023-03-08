@@ -216,37 +216,46 @@ GOOD LUCK �
 
  */
 
-const whereAmI = function (lat, lng) {
-  fetch(
-    `https://geocode.xyz/${lat},${lng}?geoit=json&auth=136567894980043431541x66720`
-  )
-    .then(res => {
-      if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
-      return res.json();
-    })
-    .then(data => {
-      console.log(data);
-      console.log(`you are in ${data.city}, ${data.country}`);
+// const whereAmI = function (lat, lng) {
+//   fetch(
+//     `https://geocode.xyz/${lat},${lng}?geoit=json&auth=136567894980043431541x66720`
+//   )
+//     .then(res => {
+//       if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
+//       return res.json();
+//     })
+//     .then(data => {
+//       console.log(data);
+//       console.log(`you are in ${data.city}, ${data.country}`);
 
-      return fetch(
-        `https://restcountries.com/v2/name/${data.country.toLowerCase()}`
-      );
-    })
-    .then(response => {
-      if (!response.ok) throw new Error(`Country not found ${response.status}`);
+//       return fetch(
+//         `https://restcountries.com/v2/name/${data.country.toLowerCase()}`
+//       );
+//     })
+//     .then(response => {
+//       if (!response.ok) throw new Error(`Country not found ${response.status}`);
 
-      return response.json();
-    })
-    .then(data => renderCountry(data[0]))
-    .catch(error => console.log(error.message));
-};
-// const currLocation = navigator.geolocation.getCurrentPosition();
-// console.log(currLocation);
+//       return response.json();
+//     })
+//     .then(data => renderCountry(data[0]))
+//     .catch(error => console.log(error.message));
+// };
+// // const currLocation = navigator.geolocation.getCurrentPosition();
+// // console.log(currLocation);
 
-// whereAmI(19.037, 72.873);
-// whereAmI(-33.933, 18.474);
-btn.addEventListener('click', function () {
-  // getCountryData('australia');
-  // getCountryData('britain');
-  whereAmI('52.508', '13.381');
+// // whereAmI(19.037, 72.873);
+// // whereAmI(-33.933, 18.474);
+// btn.addEventListener('click', function () {
+//   // getCountryData('australia');
+//   // getCountryData('britain');
+//   whereAmI(-33.933, 18.474);
+// });
+
+console.log('Test Start');
+setTimeout(() => console.log('0 sec timer'), 0);
+Promise.resolve('resoloved promise 1').then(res => console.log(res));
+Promise.resolve('resoloved promise 2').then(res => {
+  for (let i = 0; i < 10000000000; i++) {}
+  console.log(res);
 });
+console.log('Test End');
