@@ -54,7 +54,7 @@ const renderCountry = function (data, className = '') {
 
 const renderError = function (msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
-  // countriesContainer.style.opacity = 1;
+  countriesContainer.style.opacity = 1;
 };
 
 // const getCountryDataAndNeighbour = function (country) {
@@ -432,22 +432,53 @@ const getPostion = function () {
 //   .catch(err => console.error(err));
 
 const whereAmI = async function () {
-  const posRes = await getPostion();
-  const { latitude: lat, longitude: lng } = posRes.coords;
-  const geoRes = await fetch(
-    `https://geocode.xyz/${lat},${lng}?geoit=json&auth=136567894980043431541x66720`
-  );
-  // console.log(geoRes);
-  const datageo = await geoRes.json();
+  try {
+    const posRes = await getPostion();
+    const { latitude: lat, longitude: lng } = posRes.coords;
+    const geoRes = await fetch(
+      `https://geocode.xyz/${lat},${lng}?geoit=json&auth=136567894980043431541x66720`
+    );
 
-  const res = await fetch(
-    `https://restcountries.com/v2/name/${datageo.country.toLowerCase()}`
-  );
+    if (!geoRes.ok) {
+      throw new Error(`Problem with getting location data`);
+    }
 
-  const data = await res.json();
-  // console.log(data);
-  renderCountry(data[0]);
+    const datageo = await geoRes.json();
+    // console.log(datageo);
+    const res = await fetch(
+      `https://restcountries.com/v2/name/${datageo.country.toLowerCase()}`
+    );
+
+    const data = await res.json();
+    // console.log(data);
+    renderCountry(data[0]);
+
+    return `You are in ${datageo.city}, ${datageo.country}`;
+  } catch (err) {
+    console.error(err);
+    renderError(` ${err.message}`);
+
+    //Reject promise returned from asyncfunction
+    throw err;
+  }
 };
 
-whereAmI();
+console.log('1: will get Location');
+// whereAmI();
+// console.log('2: Finished getting Location');
 // btn.addEventListener('click', () => whereAmI());
+
+// whereAmI()
+//   .then(city => console.log(city))
+//   .catch(err => console.error(`2: ${err.message}`))
+//   .finally(() => console.log('3: Finished getting Location'));
+
+(async function () {
+  try {
+    const position = await whereAmI();
+    console.log(position);
+  } catch (err) {
+    console.log(err.message);
+  }
+  console.log('finished getting location');
+})();
