@@ -112,15 +112,15 @@ const renderError = function (msg) {
 // const request = fetch(`https://restcountries.com/v2/name/portugal`);
 // console.log(request);
 
-// const getJSON = function (url, errorMSG = 'Something went wrong') {
-//   return fetch(url).then(response => {
-//     // console.log(response);
-//     if (!response.ok) {
-//       throw new Error(`${errorMSG} (${response.status}) `);
-//     }
-//     return response.json();
-//   });
-// };
+const getJSON = function (url, errorMSG = 'Something went wrong') {
+  return fetch(url).then(response => {
+    // console.log(response);
+    if (!response.ok) {
+      throw new Error(`${errorMSG} (${response.status}) `);
+    }
+    return response.json();
+  });
+};
 
 // const getCountryData = function (country) {
 //   fetch(`https://restcountries.com/v2/name/${country}`)
@@ -431,39 +431,39 @@ const getPostion = function () {
 //   })
 //   .catch(err => console.error(err));
 
-const whereAmI = async function () {
-  try {
-    const posRes = await getPostion();
-    const { latitude: lat, longitude: lng } = posRes.coords;
-    const geoRes = await fetch(
-      `https://geocode.xyz/${lat},${lng}?geoit=json&auth=136567894980043431541x66720`
-    );
+// const whereAmI = async function () {
+//   try {
+//     const posRes = await getPostion();
+//     const { latitude: lat, longitude: lng } = posRes.coords;
+//     const geoRes = await fetch(
+//       `https://geocode.xyz/${lat},${lng}?geoit=json&auth=136567894980043431541x66720`
+//     );
 
-    if (!geoRes.ok) {
-      throw new Error(`Problem with getting location data`);
-    }
+//     if (!geoRes.ok) {
+//       throw new Error(`Problem with getting location data`);
+//     }
 
-    const datageo = await geoRes.json();
-    // console.log(datageo);
-    const res = await fetch(
-      `https://restcountries.com/v2/name/${datageo.country.toLowerCase()}`
-    );
+//     const datageo = await geoRes.json();
+//     // console.log(datageo);
+//     const res = await fetch(
+//       `https://restcountries.com/v2/name/${datageo.country.toLowerCase()}`
+//     );
 
-    const data = await res.json();
-    // console.log(data);
-    renderCountry(data[0]);
+//     const data = await res.json();
+//     // console.log(data);
+//     renderCountry(data[0]);
 
-    return `You are in ${datageo.city}, ${datageo.country}`;
-  } catch (err) {
-    console.error(err);
-    renderError(` ${err.message}`);
+//     return `You are in ${datageo.city}, ${datageo.country}`;
+//   } catch (err) {
+//     console.error(err);
+//     renderError(` ${err.message}`);
 
-    //Reject promise returned from asyncfunction
-    throw err;
-  }
-};
+//     //Reject promise returned from asyncfunction
+//     throw err;
+//   }
+// };
 
-console.log('1: will get Location');
+// console.log('1: will get Location');
 // whereAmI();
 // console.log('2: Finished getting Location');
 // btn.addEventListener('click', () => whereAmI());
@@ -473,12 +473,60 @@ console.log('1: will get Location');
 //   .catch(err => console.error(`2: ${err.message}`))
 //   .finally(() => console.log('3: Finished getting Location'));
 
+// (async function () {
+//   try {
+//     const position = await whereAmI();
+//     console.log(position);
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+//   console.log('finished getting location');
+// })();
+
+// const get3Countries = async function (c1, c2, c3) {
+//   try {
+//     // const [data1] = await getJSON(`https://restcountries.com/v2/name/${c1}`);
+//     // const [data2] = await getJSON(`https://restcountries.com/v2/name/${c2}`);
+//     // const [data3] = await getJSON(`https://restcountries.com/v2/name/${c3}`);
+
+//     const data = await Promise.all([
+//       getJSON(`https://restcountries.com/v2/name/${c1}`),
+//       getJSON(`https://restcountries.com/v2/name/${c2}`),
+//       getJSON(`https://restcountries.com/v2/name/${c3}`),
+//     ]);
+//     console.log(data);
+//     console.log(data.map(datacity => datacity[0].capital));
+//   } catch (err) {}
+// };
+
+// get3Countries('portugal', 'usa', 'bharat');
+
+//Promise.race
 (async function () {
-  try {
-    const position = await whereAmI();
-    console.log(position);
-  } catch (err) {
-    console.log(err.message);
-  }
-  console.log('finished getting location');
+  const res = await Promise.race([
+    getJSON(`https://restcountries.com/v2/name/usa`),
+    getJSON(`https://restcountries.com/v2/name/bharat`),
+    getJSON(`https://restcountries.com/v2/name/russia`),
+  ]);
+  console.log(res[0].name);
 })();
+
+//Promise.allSettled
+
+Promise.allSettled([
+  Promise.resolve('Success'),
+  Promise.reject('Error'),
+  Promise.resolve('Success'),
+  Promise.resolve('Success'),
+  Promise.reject('Error'),
+]).then(res => console.log(res));
+
+//Promise.any [ES2021]
+
+Promise.any([
+  Promise.resolve('Success'),
+  Promise.reject('Error'),
+  Promise.resolve('Success'),
+  Promise.resolve('Success'),
+  Promise.reject('Error'),
+]).then(res => console.log(res));
